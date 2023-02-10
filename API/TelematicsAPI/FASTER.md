@@ -1,7 +1,7 @@
 # FASTER information for Passio Telematic API
 
-  username: {Get from Ryan}  
-  password: {Get from Ryan}
+username: {Get from Ryan}  
+password: {Get from Ryan}
   
   
 ### Accounts Enabled for FASTER

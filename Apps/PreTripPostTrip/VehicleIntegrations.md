@@ -14,7 +14,7 @@ https://app.passiotransit.com/swagger/index.html
 
 
 
-Current spec version 1.0, August 22, 2022
+
 |      Property     |  Type  | Mandatory |                       Description                      |
 |---|---|---|---|
 | name              | string |    Yes    | Friendly name of vehicle                               |
@@ -29,7 +29,7 @@ Current spec version 1.0, August 22, 2022
 | adaAccessible     | bool   |     No    | If the vehicle is ADA accessible                       |
 | more              | json   |     No    | Additional metadata to be included in submission       |
 
-
+Current spec version 1.0, August 22, 2022  
 
 Here is an example of valid data:
 ```

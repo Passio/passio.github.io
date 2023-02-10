@@ -3,14 +3,14 @@
 Passio Inspector can integrate with an agency's vehicle list. To do this, we need a URL that we can GET that contains JSON that adheres to the following spec.
 
 Here is a working URL that conforms to this spec:  
-https://app.passiotransit.com/api/v1/Internal/VehicleIntegration
+[https://app.passiotransit.com/api/v1/Internal/VehicleIntegration](https://app.passiotransit.com/api/v1/Internal/VehicleIntegration)
 
 Here is a working API call that pulls data from Demo Account:  
-https://app.passiotransit.com/api/v1/Internal/Vehicles?agency=4
+[https://app.passiotransit.com/api/v1/Internal/Vehicles?agency=4](https://app.passiotransit.com/api/v1/Internal/Vehicles?agency=4)
 
 The agency can be changed to any userId in Passio3.  
 Swagger Docs are available here (Scroll to Internal section):  
-https://app.passiotransit.com/swagger/index.html
+[https://app.passiotransit.com/swagger/index.html](https://app.passiotransit.com/swagger/index.html)
 
 
 

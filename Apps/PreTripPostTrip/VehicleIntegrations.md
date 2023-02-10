@@ -16,7 +16,7 @@ https://app.passiotransit.com/swagger/index.html
 
 Current spec version 1.0, August 22, 2022
 |      Property     |  Type  | Mandatory |                       Description                      |
-|:-----------------:|:------:|:---------:|:------------------------------------------------------:|
+|---|---|---|---|
 | name              | string |    Yes    | Friendly name of vehicle                               |
 | id                | string |    Yes    | Internal id of vehicle. Must be unique in json payload |
 | description       | string |     No    | Additional information to describe the vehicle         |

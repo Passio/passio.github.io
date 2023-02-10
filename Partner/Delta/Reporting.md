@@ -6,15 +6,15 @@ user: {Get from Bilal}
 pass: {Get from Bilal}  
 
 Change Password here:  
-https://passio3.com
+`https://passio3.com`
 
 Get accessToken with this call:  
-https://passio3.com/auth/login?username={username}&password={password}&extended=1
+`https://passio3.com/auth/login?username={username}&password={password}&extended=1`
 
 
 ## Active Driver
 
-https://passio3.com/passioTransit/activeDriver?userId=2072&from=yyyy-mm-dd&to=yyyy-mm-dd&outOfService=0&accessToken={accessToken}
+`https://passio3.com/passioTransit/activeDriver?userId=2072&from=yyyy-mm-dd&to=yyyy-mm-dd&outOfService=0&accessToken={accessToken}`
 
 List of driver activity segmented by IS/OOS and vehicle  
 
@@ -30,16 +30,18 @@ Use `outOfService` query parameter to specify in service or out of service recor
 }
 ```
 
-`busId` : Id of Vehicle. Can be resolved with [Bus API call](#tdb-bus)  
-`driverId` : Id of Driver. Can be resolved with [Driver API call](#tdb-driver)  
-`outOfService` : If this record defines an [In Service (revenue)](#oos-revenue) period or [Out Of Service (deadhead)](#oos-deadhead) period  
-`from` : Start of record period   
-`to` : End of record period  
+| Field | Definition | 
+| --- | --- |
+| busId | Id of Vehicle. Can be resolved with [Bus API call](#tdb-bus) |
+| driverId | Id of Driver. Can be resolved with [Driver API call](#tdb-driver)  |
+| outOfService | If this record defines an [In Service (revenue)](#oos-revenue) period or [Out Of Service (deadhead)](#oos-deadhead) period  |
+| from | Start of record period |
+| to | End of record period |
 
 
 ## Headway
 
-https://passio3.com/passioTransit/headway?userId=2072&from=yyyy-mm-dd&to=yyyy-mm-dd&accessToken={accessToken}
+`https://passio3.com/passioTransit/headway?userId=2072&from=yyyy-mm-dd&to=yyyy-mm-dd&accessToken={accessToken}`
 
 Show headway data for every stop by every vehicle for the given date range.
 
@@ -59,21 +61,23 @@ Show headway data for every stop by every vehicle for the given date range.
     },
 ```
 
-`arrivalDatetime` : Actual arrival time  
-`routeId` : Id of Route servicing this stop. Can be resolved with [Route API call](#tdb-route)  
-`busId` : Id of Vehicle. Can be resolved with [Bus API call](#tdb-bus)
-`routeStopId` : Stop being serviced. Can be resolved with [RouteStop API call](#tdb-route-stop)  
-`arrivalArrivalDuration` : Seconds between this arrival and previous arrival  
-`arrivalDepartureDuration` : Seconds between this arrival and previous departure  
-`departureArrivalDuration` : Seconds between this departure and previous arrival  
-`departureDepartureDuration` : Seconds between this departure and previous departure  
-`broken` : If there was a gap in servicing this stop based on the expected stop order  
+| Field | Definition | 
+| --- | --- |
+| arrivalDatetime | Actual arrival time  |
+| routeId | Id of Route servicing this stop. Can be resolved with [Route API call](#tdb-route) |
+| busId | Id of Vehicle. Can be resolved with [Bus API call](#tdb-bus)|
+| routeStopId | Stop being serviced. Can be resolved with [RouteStop API call](#tdb-route-stop) |
+| arrivalArrivalDuration | Seconds between this arrival and previous arrival  |
+| arrivalDepartureDuration | Seconds between this arrival and previous departure |  
+| departureArrivalDuration | Seconds between this departure and previous arrival | 
+| departureDepartureDuration | Seconds between this departure and previous departure | 
+| broken | If there was a gap in servicing this stop based on the expected stop order | 
 
 
 
 ## Active Vehicle Count
 
-https://passio3.com/passioTransit/activeVehicle?userId=2072&from=yyyy-mm-dd&to=yyyy-mm-dd&accessToken={accessToken}
+`https://passio3.com/passioTransit/activeVehicle?userId=2072&from=yyyy-mm-dd&to=yyyy-mm-dd&accessToken={accessToken}`
 
 Unique number of vehicles in service aggregated by hour.
 
@@ -95,10 +99,12 @@ In service and out of service logic is same as Active Driver API
 }]
 ```
 
-`date` : Service date  
-`hour` : Service hour (0-23)  
-`outOfService` : If this record defines an [In Service (revenue)](#oos-revenue) period or [Out Of Service (deadhead)](#oos-deadhead) period  
-`count` : Number of vehicles in the IS/OOS state during this hour block  
+| Field | Definition | 
+| --- | --- |
+| date | Service date |
+| hour | Service hour (0-23) |
+| outOfService | If this record defines an [In Service (revenue)](#oos-revenue) period or [Out Of Service (deadhead)](#oos-deadhead) period |
+| count | Number of vehicles in the IS/OOS state during this hour block |
 
 
 
@@ -106,20 +112,20 @@ In service and out of service logic is same as Active Driver API
 
 
 #### Route: {#tdb-route}
-POST: https://passio3.com/tdb/get/?accessToken={token}
-JSON Body:  {"type":"route","userId":"2072","field" : ["id", "name", "color", "shortName", "color", "textColor"], "limit" : 400}
+POST: `https://passio3.com/tdb/get/?accessToken={token}`  
+JSON Body:  `{"type":"route","userId":"2072","field" : ["id", "name", "color", "shortName", "color", "textColor"], "limit" : 400}`
 
 #### Bus: {#tdb-bus}
-POST: https://passio3.com/tdb/get/?accessToken={token}
-JSON Body:  {"type":"bus","userId":"2072","field" : ["id", "name", "vin"], "limit" : 400}
+POST: `https://passio3.com/tdb/get/?accessToken={token}`  
+JSON Body:  `{"type":"bus","userId":"2072","field" : ["id", "name", "vin"], "limit" : 400}`
 
 #### Driver: {#tdb-driver}
-POST: https://passio3.com/tdb/get/?accessToken={token}
-JSON Body:  {"type":"driver","userId":"2072", "field" : ["name", "id","firstName", "lastName"],  "id" : 16620, "limit" : 400}
+POST: `https://passio3.com/tdb/get/?accessToken={token}`  
+JSON Body:  `{"type":"driver","userId":"2072", "field" : ["name", "id","firstName", "lastName"],  "id" : 16620, "limit" : 400}`
 
 #### Route Stop: {#tdb-route-stop}
-POST: https://passio3.com/tdb/get/?accessToken={token}
-JSON Body:  {"type":"routeStop","userId":"2072", "id" : 897276, "limit" : 400}
+POST: `https://passio3.com/tdb/get/?accessToken={token}`  
+JSON Body:  `{"type":"routeStop","userId":"2072", "id" : 897276, "limit" : 400}`
 
 ## Definitions
 

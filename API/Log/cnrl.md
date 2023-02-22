@@ -26,7 +26,7 @@ https://passio3.com/cnrl/report/log/log/?accessToken={token}
 Access Log for data range (JSON)  
 https://passio3.com/cnrl/report/log/log/2023-02-01/2023-02-04.json?accessToken={token}
 
-Access Telematic Log for data range (CSV)  
+Access Log for data range (CSV)  
 https://passio3.com/cnrl/report/log/log/2023-02-01/2023-02-04/?accessToken={token}
 
 You can also filter specific data using POST body. For example:  

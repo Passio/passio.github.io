@@ -33,6 +33,10 @@ You can also filter specific data using POST body. For example:
 `{"filter": {"cardId": {"!=": ["",null]}}}`  
 Will return only records where the CardId is not null and not empty
 
+You can also filter on multiple items. For example:  
+`{"filter": {"cardId": {"!=": ["",null]}, "created" : {"from" : "2023-02-22 18:28:00"}}}`  
+Will return records with a CardId and was created after 6:28pm on Feb 22. Note the seconds are populated. That is important.
+
 ### Sample dataset
 ```
 [

@@ -41,6 +41,7 @@ We will use one data object that will be sent from ParaScope on driver pick up a
 | driverName | First and last name of driver | Yes |  "Nick Hexum" |
 | blockId | ID of GTFS Block. Should match `block_id` in trips.txt | Yes | 44678|
 | stopId | ID of last stop. Should match `stop_id` in stops.txt | No | If not included, we will use vMDT or last known stop.<br>We will need to verify that stopId exists on tripId (when CTS is performing Deviated stop).<br>If not, we will ignore stopId and use last known stopId |
+| stopSequence | Stop order of current `stopId`. Should match `stop_sequence` in stop_times.txt | Yes | Used to reconcile the scenerio where the stop exists twice in a trip. Most commonly the first and last stop of a looping route |
 | tripId | ID of current trip. Should match `trip_id` in trips.txt | Yes | 32889 | 
 | routeId | ID of current route. Should match `route_id` in routes.text | Yes | 88567 |
 | outOfService | If the vehicle is revenue or deadhead | Yes | 1 = deadhead, 0 = revenue |
@@ -77,6 +78,7 @@ Output: agencyName
   "driverName": "Nick Hexum",
   "blockId": "234",
   "stopId": "345",
+  "stopSequence": "1",
   "tripId": "765",
   "routeId": "987",
   "outOfService": "1",
@@ -98,6 +100,7 @@ Output: agencyName
   "driverName": "Nick Hexum",
   "blockId": "234",
   "stopId": "345",
+  "stopSequence": "1",
   "tripId": "765",
   "routeId": "987",
   "outOfService": "1",
@@ -119,6 +122,7 @@ Output: agencyName
   "driverName": "Nick Hexum",
   "blockId": "234",
   "stopId": "345443", //ignore this as it is not part of tripId 765
+  "stopSequence": "0", //ignore this as not a fixed stop
   "tripId": "765",
   "routeId": "987",
   "outOfService": "1",

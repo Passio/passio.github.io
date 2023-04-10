@@ -199,6 +199,11 @@ JSON Body:  `{"type":"driver","userId":"1901", "field" : ["name", "id","firstNam
 POST: `https://passio3.com/tdb/get/?accessToken={token}`  
 JSON Body:  `{"type":"routeStop","userId":"1901", "id" : 897276, "limit" : 400}`
 
+#### Assigment and Revenue/Deadhead Information:
+POST: `https://passio3.com/tdb/get/?accessToken={token}`  
+JSON Body: `{"type":"busUpdateLog","userId":"1901", "filter" : {"created" : {">" : "2023-04-10"}, "busId" : "8053"}, "limit" : 3}`  
+This can be referenced to see if the vehicle was in (Revenue) or out of service (Deadhead) during a date range. This log shows the source of the assignment and the revenue state of the vehicle at the time the record was created.
+
 
 
 

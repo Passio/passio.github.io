@@ -73,18 +73,18 @@ Output: agencyName
 ```
 {
   "agencyId": "2868",
-  "vehicleId": "123",
+  "vehicleId": 123,
   "vehicleVIN": "JA3AU26U18U042758",
   "driverName": "Nick Hexum",
-  "blockId": "234",
-  "stopId": "345",
-  "stopSequence": "1",
-  "tripId": "765",
-  "routeId": "987",
-  "outOfService": "1",
-  "paxLoad": "11",
-  "paxOnOff": "0",
-  "paxCount": "3",
+  "blockId": 234,
+  "stopId": 345,
+  "stopSequence": 1,
+  "tripId": 765,
+  "routeId": 987,
+  "outOfService": 1,
+  "paxLoad": 11,
+  "paxOnOff": 0,
+  "paxCount": 3,
   "timestamp": "2023-03-11 14:22:00"
 }
 
@@ -95,16 +95,16 @@ Output: agencyName
 ```
 {
   "agencyId": "2868",
-  "vehicleId": "123",
+  "vehicleId": 123,
   "vehicleVIN": "JA3AU26U18U042758",
   "driverName": "Nick Hexum",
-  "blockId": "234",
-  "stopId": "345",
-  "stopSequence": "1",
-  "tripId": "765",
-  "routeId": "987",
-  "outOfService": "1",
-  "paxLoad": "11",
+  "blockId": 234,
+  "stopId": 345,
+  "stopSequence": 1,
+  "tripId": 765,
+  "routeId": 987,
+  "outOfService": 1,
+  "paxLoad": 11,
   "paxOnOff": null,
   "paxCount": 0,
   "timestamp": "2023-03-11 14:22:00"
@@ -117,16 +117,16 @@ Output: agencyName
 ```
 {
   "agencyId": "2868",
-  "vehicleId": "123",
+  "vehicleId": 123,
   "vehicleVIN": "JA3AU26U18U042758",
   "driverName": "Nick Hexum",
-  "blockId": "234",
-  "stopId": "345443", //ignore this as it is not part of tripId 765
-  "stopSequence": "0", //ignore this as not a fixed stop
-  "tripId": "765",
-  "routeId": "987",
-  "outOfService": "1",
-  "paxLoad": "11",
+  "blockId": 234,
+  "stopId": 345443, //ignore this as it is not part of tripId 765
+  "stopSequence": 0, //ignore this as not a fixed stop
+  "tripId": 765,
+  "routeId": 987,
+  "outOfService": 1,
+  "paxLoad": 11,
   "paxOnOff": 1,
   "paxCount": 2, //will attached to last known fixed stop (I think this is okay)
   "timestamp": "2023-03-11 14:22:00"

@@ -64,7 +64,19 @@ Passio will Peek, Process and Dequeue
 
 Passio to provide REST endpoint to sanity check agencyId.  
 Input: agencyId  
-Output: agencyName  
+Output: true | false
+
+Swagger docs available here - 
+https://app.passiotransit.com/swagger/index.html
+
+Browse to Internal section
+
+Example usage to check agency 1901:
+```
+curl -X 'GET' \
+  'https://app.passiotransit.com/api/v1/Internal/ValidAgency?agency=1901' \
+  -H 'accept: text/plain'
+```
 
 ---
 

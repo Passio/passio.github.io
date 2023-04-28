@@ -6,7 +6,7 @@ This document defines how Passio Transit MDT app will send assignment informatio
 
 | Key | Value |
 | --- | --- |
-| Protocal | UDP |
+| Protocol | UDP |
 | Connection | Ethernet |
 | IP | TBD |
 | Port | TBD |

@@ -57,7 +57,7 @@ This document defines how Passio Transit MDT app will send assignment informatio
 | --- | --- |
 | `gps` | Object that describes geographic position of vehicle |
 | `gps.latitude` | Latitude (N/S) in decimal degree format |
-| `gps. longitude` | Longitude (E/W) in decimal degree format |
+| `gps.longitude` | Longitude (E/W) in decimal degree format |
 | `gps.speed` | Current speed in meters per second |
 | `gps.heading` | Current direction in angular distance relative to north format<br>0-359 |
 | `vehicle` | Object that describes this vehicle |

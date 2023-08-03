@@ -18,16 +18,16 @@ Get accessToken with this call:
 https://passio3.com/auth/login?username={username}&password={password}&extended=1
 
 Access Telematic Log for Today (JSON)  
-https://passio3.com/{user}/report/log/telematicLog.json?accessToken={token}
+https://passio3.com/billings/report/log/telematicLog.json?accessToken={token}
 
 Access Telematic Log for Today (CSV)  
-https://passio3.com/{user}/report/log/telematicLog/?accessToken={token}
+https://passio3.com/billings/report/log/telematicLog/?accessToken={token}
 
 Access Telematic Log for data range (JSON)  
-https://passio3.com/{user}/report/log/telematicLog/2023-02-01/2023-02-04.json?accessToken={token}
+https://passio3.com/billings/report/log/telematicLog/2023-02-01/2023-02-04.json?accessToken={token}
 
 Access Telematic Log for data range (CSV)  
-https://passio3.com/{user}/report/log/telematicLog/2023-02-01/2023-02-04/?accessToken={token}
+https://passio3.com/billings/report/log/telematicLog/2023-02-01/2023-02-04/?accessToken={token}
 
 You can also filter specific data using POST body. For example:  
 `{"filter": {"busId": 9855}}`  

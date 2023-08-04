@@ -1,7 +1,7 @@
 # Information for Passio Telematic API
 
-username: {Get from Leah}  
-password: {Get from Leah}
+username: {Get from Rusty}  
+password: {Get from Rusty}
   
   
 ### Accounts Enabled for User

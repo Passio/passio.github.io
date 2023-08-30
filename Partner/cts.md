@@ -93,7 +93,7 @@ curl -X 'GET' \
   "stopSequence": 1,
   "tripId": 765,
   "routeId": 987,
-  "outOfService": 1,
+  "outOfService": 0,
   "paxLoad": 11,
   "paxOnOff": 0,
   "paxCount": 3,
@@ -115,7 +115,7 @@ curl -X 'GET' \
   "stopSequence": 1,
   "tripId": 765,
   "routeId": 987,
-  "outOfService": 1,
+  "outOfService": 0,
   "paxLoad": 11,
   "paxOnOff": null,
   "paxCount": 0,
@@ -137,7 +137,7 @@ curl -X 'GET' \
   "stopSequence": 0, //ignore this as not a fixed stop
   "tripId": 765,
   "routeId": 987,
-  "outOfService": 1,
+  "outOfService": 0,
   "paxLoad": 11,
   "paxOnOff": 1,
   "paxCount": 2, //will attached to last known fixed stop (I think this is okay)

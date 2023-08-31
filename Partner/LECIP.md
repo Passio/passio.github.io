@@ -9,7 +9,7 @@ This document defines how Passio Transit MDT app will send assignment informatio
 | Protocol | UDP |
 | Connection | Ethernet |
 | IP | TBD |
-| Port | TBD |
+| Port | 53001 |
 | Format | JSON |
 | Frequency | Stop Geofence Entry<br>Every 30 seconds |
 

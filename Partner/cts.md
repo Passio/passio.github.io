@@ -13,9 +13,12 @@ Passio cannot depend solely on vMDT because of many deviations the vehicle will 
 
 
 
-We will use one data object that will be sent from ParaScope on driver pick up and perform events.
+We will use two data objects  
+Assignment Data Object: Will be sent from ParaScope on driver login, service start, break start, break end, service stop and pick up/perform events.  
+GPS Data Object: Will be sent from ParaScope every 30 seconds
 
-
+### GPS Information
+GPS was added to the spec on 2023-09-05. It serves mostly as a keep-alive packet for Passio to keep the device considered online, which is a critical element in dispatcher managment tools. It also enables a second GPS data source in Passio Navigator and enables future solutions where CTS could be primary GPS data source.
 
 
 ## Block Assignment lifecycle
@@ -52,6 +55,19 @@ We will use one data object that will be sent from ParaScope on driver pick up a
 
 
 ---
+
+## GPS Data Object
+
+| Field | Description | Required | Expected Values + Details |
+| --- | --- | --- | --- |
+| agencyId | ID of agency | Yes | Should match `agency_id` in agency.txt | 2868 |
+| vehicleId | ID of vehicle | Yes | CTS Internal ID. Will match up with our external ID |
+| lat | Latitude of location | Yes | 34.829848 |
+| lng | Longitude of location | Yes | -82.332448 |
+| speed | Velocity of vehicle | No | 7.59 Should be meters per second |
+| heading | Cardinal direction | No | 0 - 359.9 0 is true north |
+| odometer | Last odometer reading | No | In meters |
+| timestamp | When the reading was recorded | Yes | "2023-03-11 14:22:00" |
 
 ## Endpoint
 
@@ -141,6 +157,22 @@ curl -X 'GET' \
   "paxLoad": 11,
   "paxOnOff": 1,
   "paxCount": 2, //will attached to last known fixed stop (I think this is okay)
+  "timestamp": "2023-03-11 14:22:00"
+}
+
+```
+
+## GPS Sample Dataset
+
+```
+{
+  "agencyId": "2868",
+  "vehicleId": 123,
+  "lat": 34.844836,
+  "lng": -82.355144,
+  "speed": 11.17, //25 mph
+  "heading": 270, //due West
+  "odometer": 72420480, // 45,000 miles in meters
   "timestamp": "2023-03-11 14:22:00"
 }
 

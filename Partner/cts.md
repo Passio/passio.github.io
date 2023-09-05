@@ -14,11 +14,19 @@ Passio cannot depend solely on vMDT because of many deviations the vehicle will 
 
 
 We will use two data objects  
-Assignment Data Object: Will be sent from ParaScope on driver login, service start, break start, break end, service stop and pick up/perform events.  
-GPS Data Object: Will be sent from ParaScope every 30 seconds
+[Assignment Data Object](#assignment-object): Will be sent from ParaScope on driver login, service start, break start, break end, service stop and pick up/perform events.  
+[GPS Data Object](#gps): Will be sent from ParaScope every 30 seconds
 
 ### GPS Information
 GPS was added to the spec on 2023-09-05. It serves mostly as a keep-alive packet for Passio to keep the device considered online, which is a critical element in dispatcher managment tools. It also enables a second GPS data source in Passio Navigator and enables future solutions where CTS could be primary GPS data source.
+
+### Object Types {#object-types}
+Object types were added to the spec on 2023-09-05 to differentiate between data types  
+
+| ID | Description |
+| --- | --- |
+| 0 | Assigment Data |
+| 1 | GPS Data |
 
 
 ## Block Assignment lifecycle
@@ -34,12 +42,13 @@ GPS was added to the spec on 2023-09-05. It serves mostly as a keep-alive packet
 
 ---
 
-## Assignment Data Object
+## Assignment Data Object {#assignment-object}
 
 | Field | Description | Required | Expected Values + Details |
 | --- | --- | --- | --- |
 | agencyId | ID of agency | Yes | Should match `agency_id` in agency.txt | 2868 |
 | vehicleId | ID of vehicle | Yes | CTS Internal ID. Will match up with our external ID |
+| dataType | ID of datatype | Yes | [Should be 0 for Assignment](#object-types) |
 | vehicleVIN | VIN of vehicle | No | For extra level of validation when ID is not unique due to multi-tenent db structure |
 | driverName | First and last name of driver | Yes |  "Nick Hexum" |
 | blockId | ID of GTFS Block. Should match `block_id` in trips.txt | Yes | 44678|
@@ -56,12 +65,13 @@ GPS was added to the spec on 2023-09-05. It serves mostly as a keep-alive packet
 
 ---
 
-## GPS Data Object
+## GPS Data Object {#gps}
 
 | Field | Description | Required | Expected Values + Details |
 | --- | --- | --- | --- |
 | agencyId | ID of agency | Yes | Should match `agency_id` in agency.txt | 2868 |
 | vehicleId | ID of vehicle | Yes | CTS Internal ID. Will match up with our external ID |
+| dataType | ID of datatype | Yes | [Should be 1 for GPS](#object-types) |
 | lat | Latitude of location | Yes | 34.829848 |
 | lng | Longitude of location | Yes | -82.332448 |
 | speed | Velocity of vehicle | No | 7.59 Should be meters per second |
@@ -102,6 +112,7 @@ curl -X 'GET' \
 {
   "agencyId": "2868",
   "vehicleId": 123,
+  "dataType" : 0,
   "vehicleVIN": "JA3AU26U18U042758",
   "driverName": "Nick Hexum",
   "blockId": 234,
@@ -124,6 +135,7 @@ curl -X 'GET' \
 {
   "agencyId": "2868",
   "vehicleId": 123,
+  "dataType" : 0,
   "vehicleVIN": "JA3AU26U18U042758",
   "driverName": "Nick Hexum",
   "blockId": 234,
@@ -146,6 +158,7 @@ curl -X 'GET' \
 {
   "agencyId": "2868",
   "vehicleId": 123,
+  "dataType" : 0,
   "vehicleVIN": "JA3AU26U18U042758",
   "driverName": "Nick Hexum",
   "blockId": 234,
@@ -168,6 +181,7 @@ curl -X 'GET' \
 {
   "agencyId": "2868",
   "vehicleId": 123,
+  "dataType" : 1,
   "lat": 34.844836,
   "lng": -82.355144,
   "speed": 11.17, //25 mph

@@ -8,16 +8,16 @@ Get accessToken with this call:
 https://passio3.com/auth/login?username={username}&password={password}&extended=1
 
 Access Log for Today (JSON)  
-https://passio3.com/concordk/report/log/log.json?accessToken={token}
+https://passio3.com/concordkat/report/log/log.json?accessToken={token}
 
 Access Log for Today (CSV)  
-https://passio3.com/concordk/report/log/log/?accessToken={token}
+https://passio3.com/concordkat/report/log/log/?accessToken={token}
 
 Access Log for data range (JSON)  
-https://passio3.com/concordk/report/log/log/2023-02-01/2023-02-04.json?accessToken={token}
+https://passio3.com/concordkat/report/log/log/2023-02-01/2023-02-04.json?accessToken={token}
 
 Access Log for data range (CSV)  
-https://passio3.com/concordk/report/log/log/2023-02-01/2023-02-04/?accessToken={token}
+https://passio3.com/concordkat/report/log/log/2023-02-01/2023-02-04/?accessToken={token}
 
 You can also filter specific data using POST body. For example:  
 `{"filter": {"onOff": {"=": ["on","off"]}}}`  

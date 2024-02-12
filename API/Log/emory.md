@@ -1,7 +1,6 @@
 # Passio Log API for Emory
 
-## Infomation
-Emoryuni is placeholder for agency account. If unsure, send an email to support@passiotech.com  
+
 ## Rate limiting
 This API can go back 30 days. It is advised to add filters and to not call more than one day at a time to avoid rate limiting.
 

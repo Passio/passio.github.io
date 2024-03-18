@@ -8,7 +8,10 @@ This API can go back 30 days. It is advised to add filters and to not call more 
 Get accessToken with this call:  
 https://passio3.com/auth/login?username={username}&password={password}&extended=1
 
+Username and password must be url encoded as they are possed via query string. Here is a resource to see what the encoded string should be: https://www.urlencoder.org
+
 For username and passoword, contact Bledar Ramo.
+
 
 
 ## API examples

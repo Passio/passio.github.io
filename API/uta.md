@@ -29,6 +29,8 @@ https://passio3.com/ncstateuni/report/utaLog/2023-12-12/13901?accessToken={token
 This data will go back 30 days.  
 Data may take up to 24 hours to reflected in API.
 
+Best practice is to call the API once a day. Additionally, once a week, the server should call the last 7 days in the case of a vehicle being offline.
+
 
 ### Sample dataset
 ```

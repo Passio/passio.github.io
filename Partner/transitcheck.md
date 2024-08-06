@@ -15,7 +15,7 @@ https://passio3.com/auth/login?username={username}&password={password}&extended=
 
 ## Driver Example
 
-Shows driver name, userId and PIN from UGA where TransitCheck ID is 1683 or 1657\
+Shows driver name, userId and PIN from UGA where TransitCheck ID is 1683 or 1657
 | Parameter | Value |
 | --- | --- |
 | URL | https://passio3.com/tdb/get/?accessToken={accessToken} |
@@ -43,8 +43,7 @@ Shows driver name, userId and PIN from UGA where TransitCheck ID is 1683 or 1657
 
 ---
 
-Remove `field` for all fields\
-Shows driver info from UGA where TransitCheck ID is 1683 or 1657\
+Shows driver info from UGA where TransitCheck ID is 1683 or 1657
 | Parameter | Value |
 | --- | --- |
 | URL | https://passio3.com/tdb/get/?accessToken={accessToken} |
@@ -118,7 +117,7 @@ Shows driver info from UGA where TransitCheck ID is 1683 or 1657\
 ---
 
 Combine attributes to AND filter on multiple attributes\
-Shows driver info from UGA where TransitCheck ID is 1657 and PIN is 123456\
+Shows driver info from UGA where TransitCheck ID is 1657 and PIN is 123456
 | Parameter | Value |
 | --- | --- |
 | URL | https://passio3.com/tdb/get/?accessToken={accessToken} |
@@ -140,7 +139,7 @@ Shows driver info from UGA where TransitCheck ID is 1657 and PIN is 123456\
 
 ## Vehicles Examples
 
-Shows vehicle info from UGA where TransitCheck ID is 95129\
+Shows vehicle info from UGA where TransitCheck ID is 95129
 | Parameter | Value |
 | --- | --- |
 | URL | https://passio3.com/tdb/get/?accessToken={accessToken} |

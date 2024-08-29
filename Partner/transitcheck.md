@@ -4,14 +4,21 @@ Passio uses TDB for API access. This involves an HTTP POST with JSON Body. The v
 
 ## Access Token information
 
-user: {Get from TBD}
-pass: {Get from TBD}
+user: `passio-api@transit-check.com`  
+pass: Get from Robert Budd
 
 Change Password here:
 https://passio3.com
 
 Get accessToken with this call:
 https://passio3.com/auth/login?username={username}&password={password}&extended=1
+
+## Available Accounts
+
+| Account | User ID |
+| --- | --- |
+| University of Georgia (UGA) |  3994 |
+| Coos County Area Transit Transportation District |  4835 |
 
 ## Driver Example
 

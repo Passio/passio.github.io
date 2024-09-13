@@ -38,12 +38,10 @@ Beta version - https://dispatch-beta.passioconnect.com
 9. Make sure the active driver slider is green if the driver is ready to be assigned trips.
 
 ## Driver login on MDT
-> [!IMPORTANT]
 > These instructions are for version 39.21. [Update instructions here](#How-to-update-MDT-version)
 1. Select Driver Name 
 2. Click On Demand
 3. The "Start Service" Screen will show
-> [!TIP]
 > If the Start service screen does not show  
 > 1. Click Show Hidden
 > 2. Find the Route for the driver that does not have information about another bus or another driver. The "blank" one will be theirs. Click that route and the manifest will show. If there are assigned trips, those will be shown in 30 seconds or so.
@@ -54,7 +52,7 @@ Beta version - https://dispatch-beta.passioconnect.com
 
 
 ## How to update MDT version
-> [!IMPORTANT]
+
 > If you have a BYOD, or tablet with Google Play, ONLY install the version that ends in _GP. If you have a Passio MDT, do NOT use the version that ends in _GP
 1. Click Hardware Menu button
 2. Tap "Preferences"

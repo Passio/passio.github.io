@@ -19,12 +19,11 @@ Beta version - https://dispatch-beta.passioconnect.com
 9. Make sure the active driver slider is green if the driver is ready to be assigned trips.
 
 ## End of driver shift (done by dispatcher)
-1. Edit Assignment (pencil icon)
-2. Clear the Name field (if populated)
-3. Set the Vehicle to "No Assignment" (very top of list)
-4. Set the Driver to "No Assignment" (very top of list)
-5. Slide the driver active to grey
-6. Make sure any active assigned trips left in the list are reassigned
+1. Cancel or reassign any trips in the list
+2. Close assignment  
+   - If you want to reuse the assignment in the future, click the "Remove driver and vehicle" button (clear icon) which will un-assign the driver and vehicle.  
+   - If you will not reuse the assignment, click the "Remove assignment" button (trash can) to remove the assignment.
+
 
 ## Route Assignment (creating  new if needed)
 1. Click New Assignment

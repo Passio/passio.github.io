@@ -7,6 +7,10 @@ Dispatch dashboard - https://dispatch.passioconnect.com
 Beta version - https://dispatch-beta.passioconnect.com  
 [Product Roadmap](https://docs.google.com/spreadsheets/d/18iymPnGkeL0na0wA71oNjePomudTgxhVxNo4TivmnyI/edit?usp=sharing)
 
+
+## Recent updates
+- Dispatch will now ding when there is a new trip
+
 ## Route Assignment (editing existing)
 1. Edit Assignment (Pencil icon)
 2. Set the name (if desired - will default to route name)

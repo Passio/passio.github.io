@@ -53,6 +53,17 @@ Beta version - https://dispatch-beta.passioconnect.com
 5. See Trips to be performed or "Awaiting Trips" if none are assigned yet.
 
 
+## How to use the map on MDT
+
+To see the map, tap the Map icon under the text "New Ladder"  
+<img width="159" alt="Screenshot 2024-09-19 at 8 29 15 AM" src="https://github.com/user-attachments/assets/e483e9cc-0e72-4012-8ff8-0d05a6b3c891">
+
+The map will initially load based on the current location. The manifest is still visible, but in a smaller format so the drivers can see the map.  
+<img width="350" alt="Screenshot 2024-09-19 at 8 36 26 AM" src="https://github.com/user-attachments/assets/8a91f8e3-63c4-4ec8-8643-fe3dc7781acd">
+
+To see trip details on the map, tap a stop on the manifest, then tap "Show on Map". The map will zoom out to show both the pick up and drop off location for that trip. The driver can zoom or pan the map using a standard two finger geasture.  
+<img width="350" alt="Screenshot 2024-09-19 at 8 39 51 AM" src="https://github.com/user-attachments/assets/cfeb240c-8d61-4182-8b65-a7b957635c97">
+
 
 ## How to update MDT version
 

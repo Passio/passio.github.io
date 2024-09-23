@@ -9,6 +9,7 @@ Beta version - https://dispatch-beta.passioconnect.com
 
 
 ## Recent updates
+- Drivers can now get SMS notifications  
 - Dispatch will now ding when there is a new trip
 
 ## Route Assignment (editing existing)
@@ -39,6 +40,22 @@ Beta version - https://dispatch-beta.passioconnect.com
 7. Set the start and end date, if needed[^2]
 8. Click Save Changes
 9. Make sure the active driver slider is green if the driver is ready to be assigned trips.
+
+## Driver notifications
+
+<img width="420" alt="Screenshot 2024-09-19 at 8 29 15 AM" src="https://github.com/user-attachments/assets/b6d23ca0-8c27-4dc0-9974-861ddbdb47d1">
+
+The MDT will automatically ding and say "New Ride Requested" when there is a new trip.  
+If a driver will not always be at their vehicle, or they would like an additional notification, a SMS can be sent to their phone.  
+Here is how to enable SMS notifications:  
+1. In Passio Navigator, click Configuration, then Services
+2. Select the Service to enable for SMS notifications, the Service details will open in the right hand drawer
+3. Enable the "Send SMS on new Trip" checkbox
+4. In the top menu bar of Configuration, click Drivers
+5. For each Driver that would like SMS notifications
+    1. Click their name in the list, the Driver details will open in the right hand drawer
+    2. Enter their phone number in the Phone field
+    3. Click Save
 
 ## Driver login on MDT
 > These instructions are for version 39.21. [Update instructions here](#How-to-update-MDT-version)

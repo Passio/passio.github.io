@@ -7,7 +7,9 @@ This API can go back 30 days. It is advised to add filters and to not call more 
 Get accessToken with this call:  
 https://passio3.com/auth/login?username={username}&password={password}&extended=1
 
-For username and password, contact support@passiotech.com
+For username and password, contact David Akers (akersdl@uga.edu)
+
+If password needs to be reset, visit this page - https://passio3.com/login/sendResetPassword
 
 
 ## API examples

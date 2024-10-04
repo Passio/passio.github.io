@@ -58,7 +58,7 @@ Here is how to enable SMS notifications:
     3. Click Save
 
 ## Driver login on MDT
-> These instructions are for version 39.21. [Update instructions here](#How-to-update-MDT-version)
+> These instructions are for version 40.06 or newer. [Update instructions here](#How-to-update-MDT-version)
 1. Select Driver Name 
 2. Click On Demand
 3. The "Start Service" Screen will show

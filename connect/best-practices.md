@@ -7,6 +7,9 @@ Dispatch dashboard - https://dispatch.passioconnect.com
 Beta version - https://dispatch-beta.passioconnect.com  
 [Product Roadmap](https://docs.google.com/spreadsheets/d/18iymPnGkeL0na0wA71oNjePomudTgxhVxNo4TivmnyI/edit?usp=sharing)
 
+### Need Assistance?
+
+For immediate support, please contact us at [support@passiotech.com](mailto:support@passiotech.com). We're here to help!
 
 ## Recent updates
 - Drivers can now get SMS notifications  

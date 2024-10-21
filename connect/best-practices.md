@@ -63,7 +63,7 @@ Here is how to enable SMS notifications:
 ## Driver login on MDT
 > These instructions are for version 40.06 or newer. [Update instructions here](#How-to-update-MDT-version)
 1. Select Driver Name 
-2. Make sure the MDT is show a list of routes instead of the Grid view. Then tap On Demand
+2. Make sure the MDT is showing the Route list instead of the Grid view. Then tap On Demand
 3. The "Start Service" Screen will show
 > If the Start service screen does not show  
 > 1. Click Show Hidden
@@ -72,6 +72,7 @@ Here is how to enable SMS notifications:
 4. Tap on Start Service
 5. See Trips to be performed or "Awaiting Trips" if none are assigned yet.
 
+> When selecting an On Demand route, ensure that the MDT displays routes in a list format rather than a grid. Using the grid view may cause trips to display incorrectly on the MDT. We are currently working on a software update to automatically prevent the grid view from appearing when On Demand is selected.
 
 ## How to use the map on MDT
 

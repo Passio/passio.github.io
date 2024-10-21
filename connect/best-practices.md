@@ -63,7 +63,7 @@ Here is how to enable SMS notifications:
 ## Driver login on MDT
 > These instructions are for version 40.06 or newer. [Update instructions here](#How-to-update-MDT-version)
 1. Select Driver Name 
-2. Click On Demand
+2. Make sure the MDT is show a list of routes instead of the Grid view. Then tap On Demand
 3. The "Start Service" Screen will show
 > If the Start service screen does not show  
 > 1. Click Show Hidden

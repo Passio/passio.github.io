@@ -85,6 +85,35 @@ The map will automatically load based on the driver's current location. The mani
 To view trip details on the map, the driver can select a stop from the manifest and tap "Show on Map." The map will then zoom out to display both the pickup and drop-off locations for that trip. The driver can use the standard two-finger gesture to zoom or pan the map as needed.  
 <img width="350" alt="Screenshot 2024-09-19 at 8 39 51 AM" src="https://github.com/user-attachments/assets/cfeb240c-8d61-4182-8b65-a7b957635c97">
 
+
+---
+
+## Using the MDT to Capture Walk-Up Riders
+
+<img width="689" alt="Screenshot 2024-11-13 at 2 57 42 PM" src="https://github.com/user-attachments/assets/8155f95a-5161-479f-9435-22a0cc9f4136">
+
+
+Walk-up riders are an essential part of on-demand transportation. Here’s how to effectively capture walk-up riders and integrate them into your on-demand system:
+
+Step 1: Rider Boards the Vehicle
+- When a rider gets on the vehicle, tap 'Type' on the MDT to access the passenger type screen. This screen allows you to categorize different passenger types, including walk-up riders.
+
+Step 2: Confirm Settings
+- Double-check that 'Count on tap' is unchecked. This ensures that you will manually log each rider as they board and exit, which is important for tracking individual walk-up riders accurately.
+
+Step 3: Assign a Walk-Up Rider Icon
+- Tap one of the available rider icons to represent the walk-up rider. There are three unique icons specifically used to represent individual walk-up riders. This is crucial for tracking multiple walk-up riders effectively. After selecting an icon, tap 'ON' in the upper right-hand corner to confirm the rider's boarding status.
+
+Step 4: Remember Icon Assignment
+- Make a mental note of which icon represents the rider. Properly remembering icon assignments is crucial, especially when multiple walk-up riders are on board, to avoid confusion and ensure accurate data entry.
+
+Step 5: Dropping Off a Walk-Up Rider
+- When the rider reaches their destination, tap the same rider icon that represents that rider and then tap 'OFF' in the lower right-hand corner. This action logs the completion of the trip for that specific rider.
+
+Step 6: Handling Multiple Walk-Up Riders
+- If another walk-up rider boards the vehicle while an existing walk-up rider is still on board, select one of the remaining two available icons to represent this new rider. Each walk-up rider must have a unique icon to ensure clear tracking of their journey.
+
+
 ## How to update MDT version
 
 > If you have a BYOD, or tablet with Google Play, ONLY install the version that ends in _GP. If you have a Passio MDT, do NOT use the version that ends in _GP

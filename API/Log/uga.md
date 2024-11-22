@@ -13,6 +13,10 @@ If password needs to be reset, visit this page - https://passio3.com/login/sendR
 
 
 ## API examples
+Note, `location` can be used to get GPS data for arrival and departure times from a stop. https://passio3.com/uga/report/log/location.json?accessToken={token}
+
+To merge location and log data, do a time series join using the `datetime` field.
+
 Access Log for Today (JSON)  
 https://passio3.com/uga/report/log/log.json?accessToken={token}
 

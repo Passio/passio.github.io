@@ -44,6 +44,11 @@ For immediate support, please contact us at [support@passiotech.com](mailto:supp
 8. Click Save Changes
 9. Make sure the active driver slider is green if the driver is ready to be assigned trips.
 
+## Auto Update Manifest (beta)
+<img width="361" alt="Screenshot 2025-01-03 at 8 01 49 AM" src="https://github.com/user-attachments/assets/1546147e-89d6-4edd-b692-8c0acff7be60" />
+
+When a new trip is assigned, the system intelligently reorders trips for optimal execution. Pick up and drop off times are automatically updated to reflect the new sequence, ensuring a seamless experience. Riders will see the updated ETAs in the app in real time. To enable this functionality for a specific assignment, simply check the ‘Auto Update Manifest’ option in the Assignment details.
+
 ## Driver notifications
 
 <img width="420" alt="Screenshot 2024-09-19 at 8 29 15 AM" src="https://github.com/user-attachments/assets/b6d23ca0-8c27-4dc0-9974-861ddbdb47d1">

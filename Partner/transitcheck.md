@@ -20,7 +20,7 @@ https://passio3.com/auth/login?username={username}&password={password}&extended=
 | University of Georgia (UGA) |  3994 |
 | Coos County Area Transit Transportation District |  4835 |
 | Somerset County Transportation |  5160 |
-| SAT Parking |  5479 |
+| SAT Parking (SP+) |  5479 |
 
 ## Driver Example
 

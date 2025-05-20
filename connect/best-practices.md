@@ -131,6 +131,70 @@ Step 6: Handling Multiple Walk-Up Riders
 7. Wait for the list to load from server
 8. Tap the desired version and follow prompts to install
 
+
+# On-Demand Ridership Reporting in Navigator
+
+We now support multiple ways of capturing on-demand ridership in Navigator. These updates mean that any fixed route report that includes ridership metrics will also work with on-demand trips.
+
+There are two supported methods for including passenger type data in reports:
+
+### Option 1 – Service-level passenger type
+When a rider is picked up or dropped off, the system automatically records an 'on' or 'off' count using the passenger type configured for the service.
+
+### Option 2 – Operator-level passenger type
+When a rider is picked up, the operator must manually select the passenger type.
+
+To track alightings:
+- Uncheck ‘Count on Tap’
+- Select the passenger type
+- Tap 'Off' at the time of drop-off
+
+Configuration depends on agency needs. Use the following scenarios to guide setup:
+
+---
+
+## Type 1 – Pure On-Demand, Trip Count Only
+
+1. Create a passenger type called **On Demand Rider**.
+   - If the agency uses only on-demand or wants to combine fixed route and on-demand data, check the **Report** checkbox so it appears in reports.
+2. Set the on-demand service's passenger type to **On Demand Rider**.
+
+> ✅ No manual input needed by operators. Counts will automatically appear in Navigator.
+
+---
+
+## Type 2 – On-Demand + Accessibility Service
+
+1. Create two passenger types:
+   - One for general public (e.g., `General Public`, `Student`)
+   - One for accessibility services (e.g., `ADA`, `Paratransit`)
+2. Check **Report** for each based on reporting needs.
+3. Assign the correct passenger type to each service.
+
+> ✅ Counts auto-logged when riders are picked up or dropped off.
+
+---
+
+## Type 3 – Detailed Passenger Type Tracking Across Services
+
+1. Create a passenger type called **On Demand Rider** and uncheck **Report**.
+2. Assign this as the default for all on-demand services.
+3. Create additional passenger types for each tracked group (e.g., `Student`, `Veteran`, `Elderly`).
+   - Ensure **Device** is checked so the type appears on the MDT.
+   - Check **Report** if you want it included in standard ridership reports.
+
+### Operator Workflow
+For boarding:
+1. Tap `Passenger Type`
+2. Select the appropriate rider type
+3. Tap `On`
+
+For alighting (optional):
+1. Tap `Passenger Type`
+2. Select the rider type again
+3. Tap `Off`
+
+> 💡 To simplify boarding only (no drop-offs), enable `Count on Tap` in passenger type settings.
   
 ---
 

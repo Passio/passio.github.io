@@ -153,6 +153,62 @@ All assignment data (route, stop, trip) is considered current. If assignment dat
   }...]
 ```
 
+| Field             | Definition                                          |
+| ----------------- | --------------------------------------------------- |
+| id                | Unique record identifier                            |
+| date              | Date portion of the event                           |
+| time              | Time portion of the event                           |
+| ms                | Milliseconds component of the timestamp             |
+| bus               | Vehicle name at time of event                       |
+| driver            | Driver name                                         |
+| route             | Route name                                          |
+| stop              | Stop name                                           |
+| eta               | Estimated time of arrival                           |
+| count             | Passenger count for this event                      |
+| customer          | Customer account identifier                         |
+| device            | Device name                                         |
+| passengerType     | Passenger type name                                 |
+| onOff             | Event type – “on” for boarding, “off” for alighting |
+| latitude          | Latitude of event                                   |
+| longitude         | Longitude of event                                  |
+| speed             | Vehicle speed                                       |
+| course            | Vehicle course                                      |
+| heading           | Vehicle heading                                     |
+| distance          | Distance traveled reported by the device            |
+| cardId            | Fare card identifier                                |
+| locationException | Flag if location data was invalid                   |
+| address           | Address obtained from reverse geocode               |
+| uploadDatetime    | Time record was uploaded                            |
+| hash              | Hash used to detect duplicates                      |
+| dup               | Duplicate record flag                               |
+| userId            | Account user ID                                     |
+| uid               | Unique record ID formed from timestamp and ms       |
+| paxLoad           | Passenger load after the event                      |
+| more              | Additional JSON data                                |
+| created           | Record creation time                                |
+| datetime          | Timestamp of the event                              |
+| zohoStatus        | Zoho sync status (null/0 not synced, 1 synced)      |
+| cardStatusId      | Card read status ID (see passenger types)           |
+| eta2              | Secondary ETA value                                 |
+| routeBlock        | Route block name                                    |
+| deviceId          | Device ID                                           |
+| busId             | Vehicle ID                                          |
+| driverId          | Driver ID                                           |
+| routeBlockId      | Route block ID                                      |
+| routeStopId       | Route stop ID                                       |
+| passengerTypeId   | Passenger type ID                                   |
+| trip              | Trip name                                           |
+| tripId            | Trip ID                                             |
+| timePoint         | Time point label                                    |
+| timePointId       | Time point ID                                       |
+| syslogId          | Related system log ID                               |
+| firmware          | Firmware version                                    |
+| firmwareId        | Firmware ID string                                  |
+| logUpload         | Associated upload identifier                        |
+| logUploadId       | Upload record ID                                    |
+| busUpdateLogId    | Related bus update log ID                           |
+| createdUtc        | Record creation time in UTC                         |
+| datetimeUtc       | Event timestamp in UTC                              |
 
 ## Active Driver
 

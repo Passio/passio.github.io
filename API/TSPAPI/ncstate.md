@@ -2,6 +2,9 @@
 
 username: {Get from Cameron}  
 password: {Get from Cameron}
+
+## Rate limiting
+This API can go back 30 days. It is advised to add filters and to not call more than one day at a time to avoid rate limiting.
   
   
 ### Accounts Enabled for User

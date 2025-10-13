@@ -60,3 +60,16 @@ Will return data for the busId of 9855
         "fuelType": 0
     }
 ```
+
+
+## Addtional API Information
+
+
+#### Device:
+POST: `https://passio3.com/tdb/get/?accessToken={token}`  
+JSON Body:  `{"type":"device","userId":"3901","field" : ["id", "name", "bus", "busId"], "limit" : 400}`
+
+#### Bus:
+POST: `https://passio3.com/tdb/get/?accessToken={token}`  
+JSON Body:  `{"type":"bus","userId":"3901","field" : ["id", "name", "vin"], "limit" : 400}`
+

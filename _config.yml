@@ -1,4 +1,9 @@
 theme: jekyll-theme-minimal
 title: Passio API & App Usage Guides
 description: 
-markdown: GFM
+# markdown: GFM
+markdown: kramdown  # (or commonmark, both work with code fences)
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    guess_lang: false

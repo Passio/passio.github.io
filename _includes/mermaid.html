@@ -1,0 +1,10 @@
+<!-- Load Mermaid.js from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Mermaid on any elements with the mermaid diagram class
+    mermaid.initialize({ startOnLoad: true });
+    // Tell Mermaid to look for code blocks with class "language-mermaid"
+    mermaid.run({ querySelector: '.language-mermaid' });
+  });
+</script>

@@ -76,7 +76,7 @@ GPS data is obtained from the onboard CAD/AVL location source.
 ## Diagram
 ```mermaid
 flowchart LR
-    %% Scope: Door triggered counting with Clever MDT controlling Matrix 6 APC over IP
+    %% Scope: Door triggered counting with Clever MDT controlling MATRIX APC over IP
 
     %% On bus network
     subgraph BUS[On bus network]
@@ -90,7 +90,7 @@ Network switch and cellular uplink"]:::iface
         CleverMDT(("Clever MDT  
 (on board application)")):::proc
 
-        Matrix6["Matrix 6 APC devices  
+        Matrix6["MATRIX APC devices  
 (one over each door)"]:::ext
 
         %% Network connections

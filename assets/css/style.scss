@@ -3,8 +3,14 @@
 
 @import "{{ site.theme }}";
 
+/* Hide sidebar */
+.sidebar {
+  display: none;
+}
+
+
 .wrapper {
-  width:1200px;
+  width:95%;
   // left side is 270
   // 1200-270 = 930
   // 30px free room

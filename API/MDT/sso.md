@@ -2,14 +2,15 @@
 
 ### 1. Overview
 The onboard **MDT** communicates with **network connected devices** using a lightweight UDP-based protocol over a **closed Ethernet network**.  
-Messages are pushed periodically in a “set-it-and-forget-it” manner, containing redundant JSON data describing the vehicle, route, and stop information.
+Messages are pushed periodically in a "set-it-and-forget-it" manner, containing redundant JSON data describing the vehicle, route, and stop information.
 
 ---
 
 ### 2. Message Format
 
-`[PROTOCOL_IDENTIFIER][FUNCTION][COUNT][LOAD][CHECKSUM]`
-
+```
+[PROTOCOL_IDENTIFIER][FUNCTION][COUNT][LOAD][CHECKSUM]
+```
 
 | Field | Description | Type | Notes |
 |-------|--------------|------|-------|

@@ -3,7 +3,7 @@
 username: {ranga.gopalan@bytecurve.com}  
 password: {Get from Ranga}
 
-## User names
+## Client user names
 
 | Username | Account | User ID |
 | --- | --- | --- |

@@ -241,7 +241,7 @@ Use `outOfService` query parameter to specify in service or out of service recor
 
 `https://passio3.com/passioTransit/headway?userId=5397&from=yyyy-mm-dd&to=yyyy-mm-dd&accessToken={accessToken}`
 
-Show headway data for every stop by every vehicle for the given date range.
+Show headway data for every stop by every vehicle for the given date range. The vehicle must be in service and assigned to the route to show up in headway API. Additionally, the route calendars need to be configured properly. If a calendar states that a route is not supposed to be active, then the API will filter that data out.
 
 ```
 {

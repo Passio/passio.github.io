@@ -23,10 +23,10 @@ Access Data for Today (CSV)
 https://passio3.com/{client_username}/report/log/location/?accessToken={token}
 
 Access Data for data range (JSON)  
-https://passio3.com/{client_username}/report/log/location/2026-02-01/2026-02-04.json?accessToken={token}
+https://passio3.com/{client_username}/report/log/location/2026-03-01/2026-03-04.json?accessToken={token}
 
 Access Data for data range (CSV)  
-https://passio3.com/{client_username}/report/log/location/2026-02-01/2026-02-04/?accessToken={token}
+https://passio3.com/{client_username}/report/log/location/2026-03-01/2026-03-04/?accessToken={token}
 
 You can also filter specific data using POST body. For example:  
 `{"filter": {"bus": {"=": ["311","312"]}}}`  

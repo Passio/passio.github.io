@@ -53,10 +53,26 @@ During the first implementation, assignment data returned by this API will be wr
 
 ---
 
-## REGISTER (Declaring Planned Trips)
+## REGISTER (Create daily session for a bus)
 
 ### Overview
-A bus declares which trips it will service for the day.
+A bus stating it will be potentially be working today.
+
+### Example
+BusId: 311  
+
+### When to Call
+- Daily at 5 minutes before `user.startOfDay`
+- If start of day is 3:00 AM, then call at 2:55 AM
+- `user.startOfDay` can be NULL. Consider that 12:00 AM
+- If start of day is 12:00 AM, and register is being done at 11:55 PM, be sure to send in tomorrow
+
+---
+
+## ReplaceFutureTrip (Declaring Planned Trips)
+
+### Overview
+A bus declares which trips it will service for the remainder of the day.
 
 ### Example
 BusId: 311  
@@ -89,14 +105,14 @@ The transit agency publishes the full set of route and schedule data for the day
 
 1. API endpoint
     - `passioTransit/router.js`
-    - POST /system/publishConfig calls:publishConf(req.profile, req.body.userId, req.body.outOfService)
+    - POST /system/publishConfig calls:publishConf(req.profile, req.body.userId, req.body.outOfService)
         
 2. Publish implementation
     - `tdb/type/user/device/deviceEvent/publishConf.js`
     - It does three key things:
         - updates user publish metadata (publishConf, author, timestamps),
-        - writes a syslog row with logAction: 'publishConf',
-        - creates a deviceEvent per device with name: 'publishConf'.
+        - writes a syslog row with logAction: 'publishConf',
+        - creates a deviceEvent per device with name: 'publishConf'.
             
 
 ### How to hook into event
@@ -104,15 +120,16 @@ The transit agency publishes the full set of route and schedule data for the day
 2 options:
 
 1. TDB hook on deviceEvent add
-    - `tdb/type/user/device/deviceEvent/tdb.js` (add.after)
-    - It already handles item.name === 'publishConf' and updates device.lastPublishConf.
+    - `tdb/type/user/device/deviceEvent/tdb.js` (add.after)
+    - It already handles item.name === 'publishConf' and updates device.lastPublishConf.
     - Will be running in the same app boundary as Navigator
         
 2. Realtime subscription (websocket)
-    - `tdb/index.js` broadcasts add/update/delete via im.broadcast(...)
-    - `im/wss2.js` supports subscribe by type (including deviceEvent, syslog, user)
+    - `tdb/index.js` broadcasts add/update/delete via im.broadcast(...)
+    - `im/wss2.js` supports subscribe by type (including deviceEvent, syslog, user)
     - So you can subscribe to:
-        - deviceEvent filtered by name: 'publishConf', or
-        - syslog filtered by logAction: 'publishConf'.
+        - deviceEvent filtered by name: 'publishConf', or
+        - syslog filtered by logAction: 'publishConf'.
     - Could be running outside of Navigator
+
 

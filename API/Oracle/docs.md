@@ -1,7 +1,7 @@
 ## ASK (Polling for Assignments and ETAs)
 
 ### Overview
-A bus periodically requests its current assignment and ETA data.
+An in service bus periodically requests its current assignment and ETA data.
 
 ### Questions Being Answered
 
@@ -16,6 +16,7 @@ A bus periodically requests its current assignment and ETA data.
 ### Polling Frequency
 - Call every 10 seconds to start
 - This can be adjusted based on performance and accuracy needs
+- Only call when `bus.outOfService` = 0 (this means the bus is in revenue service)
 
 ### Response Handling
 

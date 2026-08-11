@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oracle-Mode Use Cases — Sequence Diagrams & Navigator Table Reference</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --brand: #1a3a5c;
+    --brand-light: #2a5298;
+    --accent: #e87722;
+    --warn: #d9534f;
+    --ok: #2e7d32;
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --border: #dde3ec;
+    --text: #1c2b3a;
+    --text-muted: #5a6a7a;
+    --code-bg: #eef2f7;
+    --radius: 8px;
+    --shadow: 0 2px 12px rgba(26,58,92,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+  a { color: var(--brand-light); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── Header ─────────────────────────────────────────── */
+  header {
+    background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%);
+    color: #fff; padding: 40px 48px 36px;
+  }
+  header .ticket { font-size: 0.78rem; letter-spacing: .12em; text-transform: uppercase; opacity: .75; margin-bottom: 6px; }
+  header h1 { font-size: 1.85rem; font-weight: 700; line-height: 1.25; }
+  header .meta { margin-top: 14px; font-size: 0.86rem; opacity: .8; display: flex; gap: 28px; flex-wrap: wrap; }
+  header .meta span::before { content: '• '; }
+  header .meta span:first-child::before { content: ''; }
+
+  /* ── Layout ──────────────────────────────────────────── */
+  .wrapper { max-width: 1160px; margin: 0 auto; padding: 0 32px 64px; }
+
+  /* ── Nav ─────────────────────────────────────────────── */
+  nav.toc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; margin: 32px 0 36px; box-shadow: var(--shadow); }
+  nav.toc h2 { font-size: 0.78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 14px; }
+  nav.toc ol { padding-left: 20px; }
+  nav.toc li { margin: 5px 0; font-size: 0.93rem; }
+  nav.toc ol ol { margin-top: 4px; }
+
+  /* ── Sections ────────────────────────────────────────── */
+  section { margin-bottom: 48px; }
+  h2.section-title {
+    font-size: 1.25rem; font-weight: 700; color: var(--brand);
+    border-bottom: 3px solid var(--accent); padding-bottom: 8px; margin-bottom: 24px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2.section-title .num {
+    background: var(--brand); color: #fff; border-radius: 50%;
+    width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.82rem; flex-shrink: 0;
+  }
+  h3.uc-title {
+    font-size: 1.05rem; font-weight: 700; color: var(--brand-light);
+    margin: 36px 0 6px; padding: 10px 16px; background: #eef4fb;
+    border-left: 4px solid var(--brand-light); border-radius: 0 var(--radius) var(--radius) 0;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h3.uc-title .badge {
+    background: var(--brand-light); color: #fff; font-size: 0.72rem;
+    padding: 2px 8px; border-radius: 12px; font-weight: 600; letter-spacing: .04em;
+  }
+  h3.uc-title .warn-badge {
+    background: var(--warn); color: #fff; font-size: 0.72rem;
+    padding: 2px 8px; border-radius: 12px; font-weight: 600; letter-spacing: .04em;
+  }
+
+  /* ── Cards ───────────────────────────────────────────── */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin: 16px 0; box-shadow: var(--shadow); }
+  .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+  @media (max-width: 720px) { .card-grid { grid-template-columns: 1fr; } }
+  .card .label { font-size: 0.73rem; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; }
+
+  /* ── Tables ──────────────────────────────────────────── */
+  .table-wrap { overflow-x: auto; margin: 16px 0; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow); }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; background: var(--surface); }
+  thead { background: var(--brand); color: #fff; }
+  thead th { padding: 11px 16px; text-align: left; font-weight: 600; font-size: 0.82rem; letter-spacing: .04em; }
+  tbody tr:nth-child(even) { background: #f8fafc; }
+  tbody tr:hover { background: #eef4fb; }
+  td { padding: 10px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  td:first-child { font-weight: 500; }
+
+  /* ── Code / inline ───────────────────────────────────── */
+  code { background: var(--code-bg); color: #1e3a5f; padding: 2px 6px; border-radius: 4px; font-size: 0.84em; font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; }
+  pre { background: #1c2b3a; color: #e2ecf8; padding: 18px 22px; border-radius: var(--radius); overflow-x: auto; font-size: 0.84rem; margin: 14px 0; line-height: 1.6; font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace; }
+  pre code { background: transparent; color: inherit; padding: 0; }
+
+  /* ── Alerts ──────────────────────────────────────────── */
+  .alert { padding: 14px 18px; border-radius: var(--radius); margin: 16px 0; font-size: 0.9rem; display: flex; gap: 12px; align-items: flex-start; }
+  .alert-warn { background: #fff3cd; border: 1px solid #f0c040; color: #7a5800; }
+  .alert-info { background: #e8f0fe; border: 1px solid #b0c4f0; color: #1a3a7a; }
+  .alert-ok   { background: #e8f5e9; border: 1px solid #81c784; color: #1b5e20; }
+  .alert .icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── Diagram container ───────────────────────────────── */
+  .diagram-wrap { background: #fff; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin: 20px 0; box-shadow: var(--shadow); overflow-x: auto; }
+  .diagram-wrap .mermaid { min-width: 640px; }
+
+  /* ── Tag pills ───────────────────────────────────────── */
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+  .tag { display: inline-block; font-size: 0.75rem; padding: 3px 10px; border-radius: 12px; font-weight: 500; }
+  .tag-read  { background: #e3f2fd; color: #0d47a1; border: 1px solid #90caf9; }
+  .tag-write { background: #fce4ec; color: #880e4f; border: 1px solid #f48fb1; }
+  .tag-oracle { background: #f3e5f5; color: #4a148c; border: 1px solid #ce93d8; }
+  .tag-none  { background: #eceff1; color: #37474f; border: 1px solid #b0bec5; }
+
+  /* ── Corrections box ─────────────────────────────────── */
+  .corrections { background: #fffde7; border: 1px solid #f9a825; border-radius: var(--radius); padding: 16px 20px; margin: 14px 0; font-size: 0.87rem; }
+  .corrections .corr-title { font-weight: 700; color: #e65100; margin-bottom: 8px; font-size: 0.82rem; letter-spacing: .06em; text-transform: uppercase; }
+  .corrections ul { padding-left: 18px; }
+  .corrections li { margin: 5px 0; }
+
+  /* ── Footer ──────────────────────────────────────────── */
+  footer { text-align: center; padding: 28px; font-size: 0.82rem; color: var(--text-muted); border-top: 1px solid var(--border); background: var(--surface); margin-top: 32px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="ticket">Ticket #7302 &nbsp;·&nbsp; Branch: project-oracle</div>
+  <h1>Oracle-Mode Use Cases<br>Sequence Diagrams & Navigator Table Reference</h1>
+  <div class="meta">
+    <span>Last updated: 2026-11-08</span>
+    <span>Systems: MDT · Navigator · Oracle</span>
+    <span>7 In-scope use cases · 2 Out-of-scope documented</span>
+  </div>
+</header>
+
+<div class="wrapper">
+
+<!-- TOC -->
+<nav class="toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#s1">Architecture Overview</a></li>
+    <li><a href="#s2">Navigator Table Catalog</a></li>
+    <li><a href="#s3">MDT Endpoints & Oracle HTTP Reference</a></li>
+    <li><a href="#s4">Use Case Diagrams</a>
+      <ol>
+        <li><a href="#uc1">UC1 — MDT marks bus as Out of Service</a></li>
+        <li><a href="#uc2">UC2 — MDT selects a block at session start</a></li>
+        <li><a href="#uc3">UC3 — Oracle updates the routeStop (position ingest loop)</a></li>
+        <li><a href="#uc4">UC4 — Dispatch sets block to null (unassignment)</a></li>
+        <li><a href="#uc5">UC5 — Dispatch changes the routeStop ⚠ NOT sent to Oracle</a></li>
+        <li><a href="#uc6">UC6 — MDT jumps to a different routeStop mid-run</a></li>
+        <li><a href="#uc7">UC7 — MDT jumps to the start of a trip</a></li>
+      </ol>
+    </li>
+    <li><a href="#s5">Out-of-Scope Auto-OOS Cases</a></li>
+    <li><a href="#s6">Validation vs. Production Mode</a></li>
+    <li><a href="#s7">Code Cross-Reference</a></li>
+  </ol>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 1: Architecture Overview                                   -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s1">
+  <h2 class="section-title"><span class="num">1</span>Architecture Overview</h2>
+  <p>The Oracle-mode integration adds a second path for assignment authority alongside the existing Passio Transit pipeline. Three systems collaborate:</p>
+
+  <div class="card-grid" style="margin-top:20px;">
+    <div class="card">
+      <div class="label">MDT</div>
+      <strong>In-vehicle Mobile Data Terminal</strong>
+      <p style="font-size:0.88rem;margin-top:6px;color:var(--text-muted);">Initiates all driver-driven actions: block selection, stop jumps, OOS toggle. Polls <code>/liveStatus</code> for authoritative state.</p>
+    </div>
+    <div class="card">
+      <div class="label">Navigator</div>
+      <strong>Passio Back-end</strong>
+      <p style="font-size:0.88rem;margin-top:6px;color:var(--text-muted);">Authoritative data store, business logic, and Oracle adapter. All DB access goes through the TDB API — no raw <code>db.query</code> calls. Exposes MDT surface under <code>/:username/passioTransit/mdt</code>.</p>
+    </div>
+    <div class="card">
+      <div class="label">Oracle</div>
+      <strong>External ETA/Prediction Engine</strong>
+      <p style="font-size:0.88rem;margin-top:6px;color:var(--text-muted);">Receives block assignments and GPS traces; returns predicted vehicle positions and trip updates. Navigator adapts all calls through <code>oracleService/client.js</code>.</p>
+    </div>
+    <div class="card">
+      <div class="label">TDB / MySQL</div>
+      <strong>Relational Store — Mixed Sharding Strategy</strong>
+      <p style="font-size:0.88rem;margin-top:6px;color:var(--text-muted);">
+        <strong>Regular tables</strong> (e.g. <code>bus</code>, <code>oracleBus</code>, <code>oracleSession</code>) are single tables scoped to an agency via a <code>userId</code> foreign key — not date-sharded.<br>
+        <strong>Log/append-only tables</strong> (e.g. <code>oracleBusUpdateLog2</code>, <code>location</code>, <code>etaLog</code>) are <strong>date-sharded</strong>: the physical MySQL table name encodes a date suffix from the row's <code>datetime</code>/<code>created</code> field (e.g. <code>oracleBusUpdateLog220260101</code>). Config <code>"sharding": 10</code> means the first 10 characters of the ISO datetime (<code>YYYY-MM-DD</code>) form the shard suffix.
+      </p>
+    </div>
+  </div>
+
+  <div class="alert alert-info" style="margin-top:20px;">
+    <span class="icon">ℹ</span>
+    <span>All MDT ↔ Navigator surface endpoints are mounted under <code>/:username/passioTransit/mdt</code> — see <code>passioTransit/mdt/router.js</code>. Every handler validates <code>user.isOracleEtaEnabled = 1</code> before proceeding.</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 2: Navigator Table Catalog                                 -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s2">
+  <h2 class="section-title"><span class="num">2</span>Navigator Table Catalog</h2>
+  <p style="margin-bottom:16px;">
+    <strong>Regular tables</strong> (e.g. <code>bus</code>, <code>oracleBus</code>, <code>oracleSession</code>) are single tables scoped to an agency via a <code>userId</code> foreign key.
+    <strong>Log/append-only tables</strong> (e.g. <code>oracleBusUpdateLog2</code>, <code>etaLog</code>, <code>location</code>) are <strong>date-sharded</strong> — the physical MySQL table name encodes a <code>YYYY-MM-DD</code> suffix from the row's <code>datetime</code>/<code>created</code> field (e.g. <code>oracleBusUpdateLog220260101</code>).
+    The <em>busTable</em> column reflects which assignment table is targeted based on the agency's mode flag.
+  </p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Table</th>
+          <th>Purpose</th>
+          <th>Key Fields</th>
+          <th>Sharding</th>
+          <th>Written by</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>oracleSession</code></td>
+          <td>One row per vehicle per service day. Tracks session lifecycle and block-assignment delivery state.</td>
+          <td><code>sessionId</code>, <code>busId</code>, <code>day</code>, <code>blockId</code>, <code>isActive</code>, <code>blockAssignmentToOracleStatus</code>, <code>lastTraceSentAt</code>, <code>timezone</code></td>
+          <td>None (<code>userId</code> FK)</td>
+          <td><code>registerVehicles</code>, <code>assignBlocksOnChange</code>, <code>pushPositions</code>, <code>start.js</code>, <code>setOutOfService.js</code></td>
+        </tr>
+        <tr>
+          <td><code>bus</code></td>
+          <td>Production bus assignment table. Used when <code>useOracleForAssignments = 1</code>.</td>
+          <td><code>blockId</code>, <code>routeBlockId</code>, <code>tripId</code>, <code>routeStopId</code>, <code>stopId</code>, <code>outOfService</code> (+ <code>*Updated</code> timestamps)</td>
+          <td>None (<code>userId</code> FK)</td>
+          <td><code>start.js</code>, <code>setOutOfService.js</code>, <code>jumpToStop.js</code>, <code>pushPositions</code></td>
+        </tr>
+        <tr>
+          <td><code>oracleBus</code></td>
+          <td>Oracle-authoritative shadow assignment table. Used when <code>useOracleForAssignments = 0</code> (validation mode). <code>id</code> mirrors <code>bus.id</code>.</td>
+          <td>Same schema as <code>bus</code>: <code>blockId</code>, <code>routeBlockId</code>, <code>tripId</code>, <code>routeStopId</code>, <code>stopId</code>, <code>outOfService</code> (+ <code>*Updated</code> timestamps)</td>
+          <td>None (<code>userId</code> FK)</td>
+          <td>Same handlers as <code>bus</code>; <code>pushPositions</code></td>
+        </tr>
+        <tr>
+          <td><code>oracleBusUpdateLog2</code></td>
+          <td>Append-only <strong>date-sharded</strong> audit log (BigQuery) of <code>routeStopId</code>/<code>tripId</code> changes. Written by the <code>oracleBus/tdb.js</code> hook on every <code>routeStopId</code> or <code>tripId</code> change, regardless of source. Table name suffix = <code>YYYY-MM-DD</code> of the row's <code>datetime</code>.</td>
+          <td><code>key</code>, <code>value</code>, <code>busId</code>, <code>profileId</code>, <code>deviceId</code>, <code>sourceId</code></td>
+          <td><strong>By date</strong> (<code>datetime</code>, <code>sharding:10</code>)</td>
+          <td><code>oracleBus/tdb.js</code> hook</td>
+        </tr>
+        <tr>
+          <td><code>oracleSessionAsk</code></td>
+          <td>Raw log of each <code>TripUpdate</code> returned by Oracle's <code>/ask</code> endpoint. Append-only per tick.</td>
+          <td><code>sessionId</code>, <code>tripId</code>, <code>tripStartTime</code>, <code>timestamp</code>, <code>stopTimeUpdate</code> (JSON)</td>
+          <td>None (<code>userId</code> FK)</td>
+          <td><code>pushPositions.js</code> — <code>saveToOracleSessionAsk()</code></td>
+        </tr>
+        <tr>
+          <td><code>oracleState</code></td>
+          <td>One row per user per service day. Provisioning and reconciliation checklist.</td>
+          <td><code>day</code>, <code>gtfsSyncedAt</code>, <code>vehiclesRegisteredAt</code>, <code>assignedBlocksAt</code>, <code>inactivatedPreviousDaySessionsAt</code></td>
+          <td>None (<code>userId</code> FK)</td>
+          <td>Cron / reconciliation jobs</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:20px;">
+    <div class="label">busTable selection rule — <code>oracleService/util.js</code></div>
+    <pre><code>const busTable = user.useOracleForAssignments ? busTables.bus : busTables.oracleBus</code></pre>
+    <div class="table-wrap" style="margin-top:12px;">
+      <table>
+        <thead><tr><th><code>useOracleForAssignments</code></th><th>Target table</th><th>Behaviour</th></tr></thead>
+        <tbody>
+          <tr><td><code>1</code> (production)</td><td><code>bus</code></td><td>Live assignment data; affects all consumers of the <code>bus</code> table</td></tr>
+          <tr><td><code>0</code> (validation)</td><td><code>oracleBus</code></td><td>Shadow table; MDT Oracle endpoints write here; legacy bus flows are unaffected</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:0.86rem;margin-top:10px;color:var(--text-muted);">The <code>busUpdateHookForOracleService</code> runs identically in both modes — Oracle-sync logic is the same regardless of which table is targeted.</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 3: Endpoint Reference                                      -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s3">
+  <h2 class="section-title"><span class="num">3</span>MDT Endpoints & Oracle HTTP Reference</h2>
+
+  <h3 style="font-size:0.95rem;font-weight:700;color:var(--brand);margin:0 0 10px;">Navigator MDT Endpoints (mounted under <code>/:username/passioTransit/mdt</code>)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Method</th><th>Path</th><th>Handler</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>POST</code></td><td><code>/driverAssignment/start</code></td><td><code>driverAssignment/start.js</code></td><td>Driver self-selects a block at session start</td></tr>
+        <tr><td><code>POST</code></td><td><code>/driverAssignment/jumpToStop</code></td><td><code>driverAssignment/jumpToStop.js</code></td><td>Driver manually navigates to a specific stop mid-run</td></tr>
+        <tr><td><code>POST</code></td><td><code>/driverAssignment/setOutOfService</code></td><td><code>driverAssignment/setOutOfService.js</code></td><td>Driver flips the OOS toggle</td></tr>
+        <tr><td><code>GET</code></td><td><code>/liveStatus</code></td><td><code>liveStatus.js</code></td><td>Read-only poll of authoritative assignment state</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 style="font-size:0.95rem;font-weight:700;color:var(--brand);margin:20px 0 10px;">Oracle HTTP Calls made by Navigator (<code>oracleService/client.js</code>)</h3>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Oracle Path</th><th>Navigator Caller</th><th>Purpose</th></tr></thead>
+      <tbody>
+        <tr><td><code>POST /session/{id}/register</code></td><td><code>oracleService/job/registerVehiclesForUser.js:146</code></td><td>Register vehicle with Oracle for the service day</td></tr>
+        <tr><td><code>POST /session/{id}/assign-block</code></td><td><code>oracleService/job/assignBlocksOnChange.js:97</code></td><td>Notify Oracle of block assignment change (or <code>null</code> for unassignment)</td></tr>
+        <tr><td><code>POST /session/{id}/ask</code></td><td><code>oracleService/job/pushPositions.js:107</code></td><td>Push GPS traces; receive predicted position + trip updates</td></tr>
+        <tr><td><code>POST /session/{id}/current-stop</code></td><td><code>driverAssignment/jumpToStop.js:147</code></td><td>Tell Oracle the driver-declared current stop (only caller)</td></tr>
+        <tr><td><code>POST /gtfs/{username}/json-bundle</code></td><td><code>oracleService/job/syncGtfsForUser.js</code></td><td>Push/fetch GTFS static bundle to Oracle</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert alert-warn" style="margin-top:16px;">
+    <span class="icon">⚠</span>
+    <span><strong>No <code>/out-of-service</code> Oracle endpoint exists.</strong> OOS is communicated to Oracle implicitly by setting <code>oracleSession.isActive = 0</code>, which causes <code>pushPositions</code> to stop including this vehicle in <code>/ask</code> calls.</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 4: Use Case Diagrams                                       -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s4">
+  <h2 class="section-title"><span class="num">4</span>Use Case Diagrams</h2>
+
+  <!-- ─── UC1 ─────────────────────────────────────────────────────── -->
+  <div id="uc1">
+    <h3 class="uc-title"><span class="badge">UC1</span> MDT marks bus as Out of Service</h3>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="label">Handler</div>
+        <code>driverAssignment/setOutOfService.js</code>
+      </div>
+      <div class="card">
+        <div class="label">Oracle call</div>
+        <span style="color:var(--text-muted);font-style:italic;">None — OOS expressed by pausing /ask</span>
+      </div>
+    </div>
+
+    <div class="tags">
+      <span class="tag tag-read">READ user</span>
+      <span class="tag tag-read">READ device</span>
+      <span class="tag tag-read">READ busTable</span>
+      <span class="tag tag-read">READ routeBlock</span>
+      <span class="tag tag-write">WRITE busTable.outOfService</span>
+      <span class="tag tag-write">WRITE oracleSession.isActive</span>
+      <span class="tag tag-none">No Oracle HTTP call</span>
+    </div>
+
+    <div class="corrections">
+      <div class="corr-title">✏ Code-verified corrections vs. ticket seed</div>
+      <ul>
+        <li>Ticket cited <code>setOutOfService.js:42-55</code> for "resolve user+busId". Correct: user lookup is at <strong>:42</strong>, device lookup at <strong>:55</strong>.</li>
+        <li><code>setOutOfService.js</code> does <strong>not</strong> directly write <code>oracleSession.isActive</code>. That write is fired by the <code>busUpdateHookForOracleService</code> via <code>tdb update.after</code> when <code>outOfService</code> changes.</li>
+        <li>Response is the full liveStatus shape — not just <code>{isOutOfService:true}</code>. Includes <code>blockId</code>, <code>tripId</code>, <code>routeBlockId</code>, <code>routeId</code>, <code>routeStopId</code>, <code>stopId</code>, <code>isOutOfService</code>, <code>isComplete</code>.</li>
+        <li>When <code>outOfService = false</code> (return to service), the hook restores <code>oracleSession.isActive = 1</code>.</li>
+      </ul>
+    </div>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+sequenceDiagram
+    participant MDT
+    participant Navigator
+    participant Oracle
+    MDT->>Navigator: POST /driverAssignment/setOutOfService {deviceId, outOfService}
+    Note over Navigator: READ user (isOracleEtaEnabled, useOracleForAssignments) :42
+    Note over Navigator: READ device to resolve busId :55
+    Note over Navigator: busTable = useOracleForAssignments ? bus : oracleBus
+    Note over Navigator: WRITE busTable.outOfService = 0|1 :67
+    Note over Navigator: tdb update.after fires busUpdateHookForOracleService
+    Note over Navigator: WRITE oracleSession.isActive = 0 (OOS) or 1 (in-service)
+    Navigator--xOracle: no HTTP call — pushPositions skips isActive=0 sessions
+    Note over Navigator: READ busTable {blockId,tripId,routeBlockId,stopId,routeStopId} :74
+    Note over Navigator: READ routeBlock to get routeId :92
+    Navigator-->>MDT: liveStatus JSON {blockId,tripId,routeBlockId,routeId,routeStopId,stopId,isOutOfService,isComplete}
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── UC2 ─────────────────────────────────────────────────────── -->
+  <div id="uc2">
+    <h3 class="uc-title"><span class="badge">UC2</span> MDT selects a block at session start</h3>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="label">Handler</div>
+        <code>driverAssignment/start.js</code>
+      </div>
+      <div class="card">
+        <div class="label">Oracle call</div>
+        <code>POST /session/{id}/assign-block</code> — fired asynchronously via <code>assignBlocksOnChange</code> hook
+      </div>
+    </div>
+
+    <div class="tags">
+      <span class="tag tag-read">READ user</span>
+      <span class="tag tag-read">READ device</span>
+      <span class="tag tag-read">READ trip</span>
+      <span class="tag tag-read">READ routeBlock</span>
+      <span class="tag tag-read">READ oracleSession</span>
+      <span class="tag tag-read">fetchGtfs trips.json (local/cached)</span>
+      <span class="tag tag-write">WRITE busTable {blockId, routeBlockId, tripId, …}</span>
+      <span class="tag tag-write">WRITE oracleSession {blockId, isActive:1}</span>
+      <span class="tag tag-write">WRITE oracleSession.blockAssignmentToOracleStatus</span>
+      <span class="tag tag-oracle">Oracle: assign-block (async via hook)</span>
+    </div>
+
+    <div class="corrections">
+      <div class="corr-title">✏ Code-verified corrections vs. ticket seed</div>
+      <ul>
+        <li>Ticket shows <code>GET trips.json</code> as a live Oracle call. <strong>Incorrect</strong> — <code>client.fetchGtfs(user, '/trips.json')</code> at <strong>start.js:84</strong> is a local/cached GTFS fetch, not a live Oracle request.</li>
+        <li>In <strong>validation mode</strong> (<code>useOracleForAssignments = 0</code>), a <code>db.insertUpdate</code> seeds the <code>oracleBus</code> row <em>before</em> the <code>tdb.update</code> at <strong>start.js:104</strong>.</li>
+        <li>The <code>assignBlocksOnChange</code> Oracle call fires <strong>asynchronously via the <code>tdb update.after</code> hook</strong> on <code>bus.blockId</code> change — not a direct call from <code>start.js</code>.</li>
+        <li>Response is assembled from request body + fresh DB lookups, <strong>not</strong> from re-reading the busTable (which may hold stale state before pushPositions has processed the new assignment).</li>
+        <li>Required body fields: <code>{deviceId, blockId}</code> — both must be finite numbers.</li>
+      </ul>
+    </div>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+sequenceDiagram
+    participant MDT
+    participant Navigator
+    participant Oracle
+    MDT->>Navigator: POST /driverAssignment/start {deviceId, blockId}
+    Note over Navigator: READ user (isOracleEtaEnabled, useOracleForAssignments) :58
+    Note over Navigator: READ device to resolve busId :71
+    Note over Navigator: fetchGtfs trips.json (local/cached) — validate blockId exists :84
+    Note over Navigator: Derive firstTrip, tripId, routeBlockId, routeId :94-97
+    Note over Navigator: busTable = useOracleForAssignments ? bus : oracleBus :102
+    Note over Navigator: [validation mode only] db.insertUpdate oracleBus seed row :104
+    Note over Navigator: WRITE busTable {blockId,routeBlockId,tripId,stopId:null,routeStopId:null,outOfService:0,*Updated} :113
+    Note over Navigator: tdb update.after fires assignBlocksOnChange (blockId changed)
+    Note over Navigator: READ oracleSession {busId,day} to get sessionId :131
+    Note over Navigator: WRITE oracleSession {blockId, isActive:1} :160
+    Navigator->>Oracle: POST /session/{id}/assign-block {block_id} assignBlocksOnChange.js:97
+    Oracle-->>Navigator: {Success:{invalidTrips:[]}}
+    Note over Navigator: WRITE oracleSession {blockAssignmentToOracleStatus:'success'} assignBlocksOnChange.js:107
+    Navigator-->>MDT: liveStatus JSON {blockId,tripId,routeBlockId,routeId,routeStopId:null,stopId:null,isOutOfService:false,isComplete:false}
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- UC3 + UC4 appended to s4 -->
+<section id="s4-cont1">
+
+  <!-- ─── UC3 ─────────────────────────────────────────────────────── -->
+  <div id="uc3">
+    <h3 class="uc-title"><span class="badge">UC3</span> Oracle updates the routeStop (position ingest loop)</h3>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="label">Handler</div>
+        <code>oracleService/job/pushPositions.js</code> — daemon, ticks every 10 s
+      </div>
+      <div class="card">
+        <div class="label">Oracle call</div>
+        <code>POST /session/{id}/ask</code> with recent GPS traces
+      </div>
+    </div>
+
+    <div class="tags">
+      <span class="tag tag-read">READ oracleSession (isActive=1, blockId not null, status=success)</span>
+      <span class="tag tag-read">READ user (timezone, startOfDay, useOracleForAssignments)</span>
+      <span class="tag tag-read">READ location (GPS traces)</span>
+      <span class="tag tag-read">READ trip, routeBlock, routeStop, timePoint</span>
+      <span class="tag tag-write">WRITE oracleSessionAsk (per trip_update)</span>
+      <span class="tag tag-write">WRITE eta + etaLog</span>
+      <span class="tag tag-write">WRITE oracleSession.lastTraceSentAt</span>
+      <span class="tag tag-write">WRITE busTable (tripId, routeStopId, stopId, timestamps)</span>
+      <span class="tag tag-write">WRITE oracleBusUpdateLog2 (audit, via hook)</span>
+      <span class="tag tag-oracle">Oracle: /ask</span>
+    </div>
+
+    <div class="corrections">
+      <div class="corr-title">&#9999; Code-verified details</div>
+      <ul>
+        <li>Tick interval: <code>10 * 1000</code> ms at <strong>pushPositions.js:13</strong>.</li>
+        <li>Active session filter: <code>isActive=1</code>, <code>blockId</code> not null, <code>blockAssignmentToOracleStatus='success'</code> at <strong>:34</strong>.</li>
+        <li><code>oracleSessionAsk</code> rows are written per trip_update by <code>saveToOracleSessionAsk()</code> at <strong>:371</strong> — before bus table writes.</li>
+        <li>Only fields that actually changed (<code>tripId</code>, <code>routeStopId</code>/<code>stopId</code>) are written to <code>busTable</code> at <strong>:225-243</strong>.</li>
+        <li><code>updateSource: 'oracle'</code> is stamped on every busTable write at <strong>:219</strong>.</li>
+        <li>In validation mode, a <code>db.insertUpdate</code> seeds the <code>oracleBus</code> row at <strong>:190</strong> before reading current state.</li>
+        <li><code>oracleBusUpdateLog2</code> is written by the <code>oracleBus/tdb.js</code> hook — not directly by <code>pushPositions</code>.</li>
+        <li><code>GET /liveStatus</code> is a separate MDT poll shown here to illustrate the full read path.</li>
+      </ul>
+    </div>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+sequenceDiagram
+    participant MDT
+    participant Navigator
+    participant Oracle
+    loop Every 10 seconds
+        Note over Navigator: READ active oracleSession rows pushPositions.js line 34
+        Note over Navigator: READ user rows for timezone and busTable selection line 53
+        Note over Navigator: Filter sessions to todays service day
+        Note over Navigator: READ location GPS traces since lastTraceSentAt line 384
+        Navigator->>Oracle: POST /session/id/ask with GPS trace payload line 107
+        Oracle-->>Navigator: vehicle_position and trip_updates array
+        Note over Navigator: WRITE oracleSessionAsk per trip_update line 371
+        Note over Navigator: writeEtaFromOracle - WRITE eta and etaLog
+        Note over Navigator: WRITE oracleSession lastTraceSentAt line 121
+        Note over Navigator: Extract tripId stopId stopSequence from vehicle_position
+        Note over Navigator: READ trip to get routeBlockId then resolve routeStopId line 187
+        Note over Navigator: Validation mode only - seed oracleBus row if missing line 190
+        Note over Navigator: READ busTable current tripId and routeStopId line 203
+        Note over Navigator: Compute diff - if tripId or routeStopId changed
+        Note over Navigator: WRITE busTable tripId routeStopId stopId timestamps updateSource oracle line 243
+        Note over Navigator: oracleBus hook fires - WRITE oracleBusUpdateLog2 audit
+    end
+    MDT->>Navigator: GET /liveStatus?deviceId=id
+    Note over Navigator: READ user device busTable routeBlock fetchGtfs for isComplete
+    Navigator-->>MDT: liveStatus JSON with routeStopId stopId tripId and more
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── UC4 ─────────────────────────────────────────────────────── -->
+  <div id="uc4">
+    <h3 class="uc-title"><span class="badge">UC4</span> Dispatch sets the block to null (unassignment)</h3>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="label">Handler</div>
+        <code>tdb update.after</code> hook → <code>oracleService/job/assignBlocksOnChange.js</code>
+      </div>
+      <div class="card">
+        <div class="label">Oracle call</div>
+        <code>POST /session/{id}/assign-block {block_id: null}</code>
+      </div>
+    </div>
+
+    <div class="tags">
+      <span class="tag tag-read">READ user (isOracleEtaEnabled)</span>
+      <span class="tag tag-read">READ oracleSession {busId, day}</span>
+      <span class="tag tag-write">WRITE bus/oracleBus (blockId=null — via Dispatch UI)</span>
+      <span class="tag tag-write">WRITE oracleSession.blockAssignmentToOracleStatus = 'unassigned'</span>
+      <span class="tag tag-oracle">Oracle: assign-block {null}</span>
+    </div>
+
+    <div class="corrections">
+      <div class="corr-title">✏ Code-verified details</div>
+      <ul>
+        <li><code>assignBlocksOnChange.js</code> is <strong>not</strong> directly invoked by a Navigator controller here — it fires from the <code>tdb update.after</code> hook whenever <code>bus.blockId</code> changes, including Dispatch-driven changes.</li>
+        <li>Oracle payload: <code>{block_id: null}</code> at <strong>assignBlocksOnChange.js:83</strong>.</li>
+        <li>On Oracle success, <code>blockAssignmentToOracleStatus</code> → <code>'unassigned'</code> (not <code>null</code>).</li>
+        <li>On Oracle failure, status → <code>'pending'</code> so the reconciliation job retries.</li>
+        <li><code>oracleSession.blockId</code> is cleared to <code>null</code> only on a successful non-null assignment; for unassignment only the <em>status</em> field is updated.</li>
+      </ul>
+    </div>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+sequenceDiagram
+    participant Dispatch
+    participant Navigator
+    participant Oracle
+    Dispatch->>Navigator: UPDATE bus {blockId:null} via Dispatch UI or API
+    Note over Navigator: tdb update.after fires assignBlocksOnChange {busId,blockId:null,userId}
+    Note over Navigator: READ user {isOracleEtaEnabled} :39
+    Note over Navigator: READ oracleSession {busId,day} to get sessionId :60
+    Navigator->>Oracle: POST /session/{id}/assign-block {block_id:null} :97
+    Oracle-->>Navigator: {Success:{invalidTrips:[]}}
+    Note over Navigator: WRITE oracleSession {blockAssignmentToOracleStatus:'unassigned'} :120
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- UC5 + UC6 + UC7 -->
+<section id="s4-cont2">
+
+  <!-- ─── UC5 ─────────────────────────────────────────────────────── -->
+  <div id="uc5">
+    <h3 class="uc-title">
+      <span class="warn-badge">UC5 ⚠</span> Dispatch changes the routeStop — NOT sent to Oracle
+    </h3>
+
+    <div class="alert alert-warn">
+      <span class="icon">⚠</span>
+      <span><strong>Known gap:</strong> Navigator does <em>not</em> forward Dispatch-driven <code>routeStopId</code> changes to Oracle. Oracle is the authoritative source for vehicle position. The next <code>/ask</code> cycle will overwrite any Dispatch-set stop.</span>
+    </div>
+
+    <div class="tags">
+      <span class="tag tag-write">WRITE busTable.routeStopId (+ routeStopIdUpdated)</span>
+      <span class="tag tag-write">WRITE oracleBusUpdateLog2 (audit only)</span>
+      <span class="tag tag-none">No oracleSession write</span>
+      <span class="tag tag-none">No Oracle HTTP call</span>
+    </div>
+
+    <div class="corrections">
+      <div class="corr-title">✏ Code-verified details</div>
+      <ul>
+        <li>The <code>busUpdateHookForOracleService</code> in <code>bus/tdb.js</code> only triggers the Oracle block-assignment path when <code>blockId</code>, <code>archive</code>, or <code>outOfService</code> changes. <code>routeStopId</code> is <strong>not</strong> in the trigger set.</li>
+        <li>The <code>oracleBus/tdb.js</code> hook writes <code>oracleBusUpdateLog2</code> for every <code>routeStopId</code>/<code>tripId</code> change — this is an <em>audit trail</em>, not an Oracle notification.</li>
+        <li>On the next <code>pushPositions</code> tick, Oracle's <code>vehicle_position</code> overwrites the Dispatch-set stop.</li>
+      </ul>
+    </div>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+sequenceDiagram
+    participant Dispatch
+    participant Navigator
+    participant Oracle
+    Dispatch->>Navigator: UPDATE bus/oracleBus {routeStopId:X} via Dispatch UI
+    Note over Navigator: tdb update.after — hook relevance = blockId|archive|outOfService only
+    Note over Navigator: routeStopId change does NOT trigger assignBlocksOnChange
+    Navigator--xOracle: no Oracle HTTP call
+    Note over Navigator: oracleBus/tdb.js hook — WRITE oracleBusUpdateLog2 (audit only)
+    Note over Navigator: Next pushPositions tick — Oracle /ask response overwrites routeStopId
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── UC6 ─────────────────────────────────────────────────────── -->
+  <div id="uc6">
+    <h3 class="uc-title"><span class="badge">UC6</span> MDT jumps to a different routeStop mid-run</h3>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="label">Handler</div>
+        <code>driverAssignment/jumpToStop.js</code>
+      </div>
+      <div class="card">
+        <div class="label">Oracle call</div>
+        <code>POST /session/{id}/current-stop</code>
+      </div>
+    </div>
+
+    <div class="tags">
+      <span class="tag tag-read">READ user</span>
+      <span class="tag tag-read">READ device</span>
+      <span class="tag tag-read">READ oracleSession (isActive, blockAssignmentToOracleStatus)</span>
+      <span class="tag tag-read">READ busTable (blockId cross-check)</span>
+      <span class="tag tag-read">READ routeStop → stopId</span>
+      <span class="tag tag-read">fetchGtfs stop_times.json → stop_sequence</span>
+      <span class="tag tag-read">fetchGtfs trips.json → isComplete check</span>
+      <span class="tag tag-read">READ trip → routeBlockId (from Oracle response)</span>
+      <span class="tag tag-read">READ routeBlock → routeId</span>
+      <span class="tag tag-read">READ routeStop {routeId, stopId} → routeStopId</span>
+      <span class="tag tag-write">WRITE busTable changed fields only {stopId, routeStopId, tripId, routeBlockId, *Updated}</span>
+      <span class="tag tag-oracle">Oracle: /current-stop</span>
+    </div>
+
+    <div class="corrections">
+      <div class="corr-title">✏ Code-verified corrections vs. ticket seed</div>
+      <ul>
+        <li>Required body fields are <code>{deviceId, tripId, routeStopId, blockId}</code> at <strong>jumpToStop.js:39</strong> — <code>blockId</code> is required and was <em>not</em> mentioned in the ticket seed.</li>
+        <li>Guard: <code>oracleSession.isActive !== 1</code> → 400 at <strong>:96</strong>.</li>
+        <li>Guard: <code>blockAssignmentToOracleStatus !== 'success'</code> → 400 at <strong>:103</strong>.</li>
+        <li>Guard: <code>busRow.blockId !== blockId</code> → 400 at <strong>:121</strong>.</li>
+        <li>Oracle returns <code>historic_vehicle_positions</code> — the <strong>last <code>STOPPED_AT</code> entry</strong> is the authoritative position at <strong>:149</strong>.</li>
+        <li><code>routeBlockId</code>, <code>routeId</code>, and <code>routeStopId</code> are <strong>re-derived</strong> from Oracle's response (not from request body) at <strong>:165-177</strong>.</li>
+        <li>Only changed fields are written to busTable at <strong>:192-212</strong>.</li>
+        <li><code>tdb.update</code> is called with <code>null</code> profile at <strong>:212</strong> to suppress hooks and avoid duplicate Oracle calls.</li>
+        <li><code>isComplete</code> is computed by comparing Oracle-returned stop against the last stop of the block at <strong>:185</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+sequenceDiagram
+    participant MDT
+    participant Navigator
+    participant Oracle
+    MDT->>Navigator: POST /driverAssignment/jumpToStop {deviceId,tripId,routeStopId,blockId}
+    Note over Navigator: READ user (isOracleEtaEnabled,useOracleForAssignments) :56
+    Note over Navigator: READ device to resolve busId :65
+    Note over Navigator: READ oracleSession {busId,day} — sessionId,isActive,blockAssignmentToOracleStatus :82
+    Note over Navigator: GUARD isActive=1 AND blockAssignmentToOracleStatus='success' :96-108
+    Note over Navigator: busTable = useOracleForAssignments ? bus : oracleBus
+    Note over Navigator: READ busTable {blockId,tripId,stopId,routeBlockId,routeStopId} :112
+    Note over Navigator: GUARD busRow.blockId matches request blockId :121
+    Note over Navigator: READ routeStop to get stopId :129
+    Note over Navigator: fetchGtfs stop_times.json — find stop_sequence for (tripId,stopId) :130
+    Navigator->>Oracle: POST /session/{id}/current-stop {now,stop_id,stop_sequence,trip_id} :147
+    Oracle-->>Navigator: {historic_vehicle_positions:[...]}
+    Note over Navigator: Find last STOPPED_AT entry — authoritative {stop_id,trip_id} :149
+    Note over Navigator: READ trip to get routeBlockId :165
+    Note over Navigator: READ routeBlock to get routeId :167
+    Note over Navigator: READ routeStop {routeId,stopId} to get routeStopId :170
+    Note over Navigator: fetchGtfs trips.json + stop_times.json to compute isComplete :180
+    Note over Navigator: WRITE busTable changed fields {stopId,routeStopId,tripId,routeBlockId,*Updated} :212
+    Navigator-->>MDT: liveStatus JSON {blockId,tripId,routeBlockId,routeId,routeStopId,stopId,isOutOfService,isComplete}
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── UC7 ─────────────────────────────────────────────────────── -->
+  <div id="uc7">
+    <h3 class="uc-title"><span class="badge">UC7</span> MDT jumps to the start of a trip</h3>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="label">Handler</div>
+        <code>driverAssignment/jumpToStop.js</code> — same handler as UC6
+      </div>
+      <div class="card">
+        <div class="label">Oracle call</div>
+        <code>POST /session/{id}/current-stop</code>
+      </div>
+    </div>
+
+    <div class="alert alert-info">
+      <span class="icon">ℹ</span>
+      <span>Jumping to the <strong>first stop of a trip</strong> uses this handler. Jumping to the <em>start of the block/session</em> (first block selection) is <code>driverAssignment/start.js</code> — that is <strong>UC2</strong>, not this use case.</span>
+    </div>
+
+    <div class="corrections">
+      <div class="corr-title">✏ Code-verified details</div>
+      <ul>
+        <li>Identical flow to UC6. The <code>routeStopId</code> and <code>tripId</code> in the request are resolved to the first stop of the trip.</li>
+        <li>All guards, Oracle call, table reads/writes, and response shape are unchanged from UC6.</li>
+        <li>The response will have <code>isComplete: false</code> because the vehicle is at the trip start, not the last stop of the block.</li>
+      </ul>
+    </div>
+
+    <div class="diagram-wrap">
+      <div class="mermaid">
+sequenceDiagram
+    participant MDT
+    participant Navigator
+    participant Oracle
+    MDT->>Navigator: POST /driverAssignment/jumpToStop with routeStopId and tripId set to first stop of trip
+    Note over Navigator: Same handler as UC6 - jumpToStop.js
+    Note over Navigator: All guards apply - isActive 1 blockAssignmentToOracleStatus success and blockId match
+    Note over Navigator: READ routeStop to get stopId - fetchGtfs stop_times.json to get stop_sequence
+    Navigator->>Oracle: POST /session/id/current-stop with now stop_id stop_sequence trip_id line 147
+    Oracle-->>Navigator: historic_vehicle_positions array
+    Note over Navigator: Find last STOPPED_AT entry - re-derive routeBlockId routeId and routeStopId
+    Note over Navigator: WRITE busTable changed fields and compute isComplete which is false at trip start
+    Navigator-->>MDT: liveStatus JSON with Oracle-corrected position and isComplete false
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 5: Out-of-Scope Auto-OOS Cases                            -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s5">
+  <h2 class="section-title"><span class="num">5</span>Out-of-Scope Auto-OOS Cases</h2>
+  <p style="margin-bottom:16px;">These cases are <strong>documented for context only</strong> and are <strong>not diagrammed</strong>. Neither is currently implemented on the <code>project-oracle</code> branch.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Case</th><th>Description</th><th>Potential hook point</th><th>Draft issue</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Auto-OOS on deadhead trip start</strong></td>
+          <td>When Oracle reports a trip with <code>route.deadhead = 1</code>, the bus should automatically flip to OOS.</td>
+          <td><code>pushPositions.js</code> assignment block — check <code>route.deadhead</code> after resolving <code>routeBlockId</code></td>
+          <td><code>ISSUE_DRAFT_oracle_deadhead_blocks.md</code></td>
+        </tr>
+        <tr>
+          <td><strong>Auto-OOS on yard geofence entry</strong></td>
+          <td>Legacy <code>postLocation.js:356-373</code> (gated by <code>user.yardOutOfService</code>) triggers OOS when bus enters a yard geofence. No Oracle-mode equivalent exists.</td>
+          <td>New geofence check in Oracle position path</td>
+          <td><code>ISSUE_DRAFT_oracle_yard_out_of_service.md</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 6: Validation vs. Production Mode                         -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s6">
+  <h2 class="section-title"><span class="num">6</span>Validation vs. Production Mode</h2>
+  <p style="margin-bottom:16px;">Every handler and daemon selects the target bus table using the same rule from <code>oracleService/util.js</code>:</p>
+
+  <pre><code>const busTable = user.useOracleForAssignments ? busTables.bus : busTables.oracleBus</code></pre>
+
+  <div class="table-wrap" style="margin-top:16px;">
+    <table>
+      <thead>
+        <tr><th><code>useOracleForAssignments</code></th><th>Target table</th><th>Behaviour</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>1</code> — <strong>Production</strong></td>
+          <td><code>bus</code></td>
+          <td>Live assignment data; affects all consumers of the <code>bus</code> table</td>
+        </tr>
+        <tr>
+          <td><code>0</code> — <strong>Validation</strong></td>
+          <td><code>oracleBus</code></td>
+          <td>Shadow table; MDT Oracle endpoints write here; <code>pushPositions</code> reads here; legacy bus flows are unaffected</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="alert alert-ok" style="margin-top:20px;">
+    <span class="icon">✔</span>
+    <div>
+      <strong>Both modes share identical Oracle-sync logic:</strong>
+      <ul style="margin-top:8px;padding-left:18px;font-size:0.88rem;">
+        <li>Same <code>busUpdateHookForOracleService</code> (wired from both <code>bus/tdb.js:386</code> and <code>oracleBus/tdb.js</code>)</li>
+        <li>Same <code>assignBlocksOnChange</code> Oracle call path</li>
+        <li>Same <code>oracleBusUpdateLog2</code> audit log writes for <code>routeStopId</code>/<code>tripId</code> changes</li>
+        <li>Same <code>pushPositions</code> tick logic (busTable pointer is the only difference)</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<!-- SECTION 7: Code Cross-Reference                                    -->
+<!-- ══════════════════════════════════════════════════════════════════ -->
+<section id="s7">
+  <h2 class="section-title"><span class="num">7</span>Code Cross-Reference</h2>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Use Case</th><th>Primary Handler</th><th>Key Lines</th><th>Oracle HTTP Call</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>UC1</strong> SetOutOfService</td>
+          <td><code>setOutOfService.js</code></td>
+          <td><code>:42</code> user · <code>:55</code> device · <code>:65</code> busTable · <code>:67</code> write · <code>:92</code> routeId</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td><strong>UC2</strong> Start (block select)</td>
+          <td><code>start.js</code></td>
+          <td><code>:58</code> user · <code>:71</code> device · <code>:84</code> gtfs · <code>:102</code> busTable · <code>:113</code> write bus · <code>:131</code> oracleSession · <code>:160</code> write session</td>
+          <td><code>assign-block</code> via hook</td>
+        </tr>
+        <tr>
+          <td><strong>UC3</strong> PushPositions loop</td>
+          <td><code>pushPositions.js</code></td>
+          <td><code>:34</code> active sessions · <code>:107</code> /ask · <code>:121</code> lastTraceSentAt · <code>:187</code> routeBlockId · <code>:203</code> current state · <code>:243</code> write bus · <code>:371</code> oracleSessionAsk</td>
+          <td><code>/ask</code></td>
+        </tr>
+        <tr>
+          <td><strong>UC4</strong> Dispatch null block</td>
+          <td><code>assignBlocksOnChange.js</code></td>
+          <td><code>:39</code> user · <code>:60</code> session · <code>:83</code> payload · <code>:97</code> /assign-block · <code>:120</code> status write</td>
+          <td><code>assign-block {null}</code></td>
+        </tr>
+        <tr>
+          <td><strong>UC5</strong> Dispatch routeStop</td>
+          <td><code>bus/tdb.js</code> hook (no-op for routeStopId)</td>
+          <td>Hook relevance check — routeStopId not in trigger set</td>
+          <td>None</td>
+        </tr>
+        <tr>
+          <td><strong>UC6</strong> JumpToStop mid-run</td>
+          <td><code>jumpToStop.js</code></td>
+          <td><code>:56</code> user · <code>:65</code> device · <code>:82</code> session · <code>:112</code> busRow · <code>:129</code> stopId · <code>:147</code> /current-stop · <code>:165-177</code> re-derive · <code>:212</code> write</td>
+          <td><code>/current-stop</code></td>
+        </tr>
+        <tr>
+          <td><strong>UC7</strong> Jump to trip start</td>
+          <td><code>jumpToStop.js</code> (same as UC6)</td>
+          <td>Identical to UC6</td>
+          <td><code>/current-stop</code></td>
+        </tr>
+        <tr>
+          <td><strong>liveStatus poll</strong></td>
+          <td><code>liveStatus.js</code></td>
+          <td><code>:47</code> user · <code>:60</code> device · <code>:77</code> busTable · <code>:102</code> routeId · <code>:105</code> gtfs isComplete</td>
+          <td>None</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</div><!-- /wrapper -->
+
+<footer>
+  Ticket #7302 &nbsp;·&nbsp; Branch: project-oracle &nbsp;·&nbsp; Generated 2026-11-08
+  &nbsp;·&nbsp; Diagrams rendered by <a href="https://mermaid.js.org" target="_blank">Mermaid.js</a>
+</footer>
+
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default',
+    sequence: {
+      actorMargin: 80,
+      width: 180,
+      noteMargin: 10,
+      messageMargin: 40,
+      mirrorActors: false,
+      useMaxWidth: true
+    }
+  });
+</script>
+</body>
+</html>
